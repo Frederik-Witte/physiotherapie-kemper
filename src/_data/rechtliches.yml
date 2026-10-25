@@ -1,0 +1,50 @@
+# Impressum & Datenschutz.
+# Anschrift, Telefon, Fax und E-Mail kommen automatisch aus den Praxisdaten.
+# Textfelder können Markdown enthalten (## Zwischenüberschrift, **fett**, - Aufzählung, [Linktext](https://…)).
+
+impressum:
+  seo_titel: Impressum – Physiotherapie Kemper
+  seo_beschreibung: Impressum der Physiotherapie Kemper, Dirk Kemper + Söhne GbR, {strasse}, {plz} {ort}.
+  eyebrow: Rechtliches
+  titel: Impressum
+  intro: Angaben zum Herausgeber dieser Website.
+  # Herausgeber (eine Angabe pro Zeile), z. B. Name der GbR und verantwortliche Person
+  herausgeber: |-
+    Dirk Kemper + Söhne GbR
+    Martina Kemper
+  # Weitere Zeilen der Tabelle (z. B. Vertretungsberechtigte Gesellschafter, Berufsbezeichnung, Aufsichtsbehörde)
+  weitere_angaben: []
+  # Freier Text unter der Tabelle (optional)
+  text: ""
+  hinweis:
+    anzeigen: true
+    titel: Hinweis zur Vorschau
+    text: "Vor Livegang zu ergänzen: vertretungsberechtigte Gesellschafter, Berufsbezeichnung und verleihender Staat, zuständige Aufsichtsbehörde, ggf. USt-IdNr."
+
+datenschutz:
+  seo_titel: Datenschutz – Physiotherapie Kemper
+  seo_beschreibung: "Datenschutzhinweise der Physiotherapie Kemper: keine Cookies, kein Tracking, keine externen Dienste."
+  eyebrow: Rechtliches
+  titel: Datenschutz
+  intro: "Kurz und verständlich: wie diese Website mit Ihren Daten umgeht."
+  kurzfassung:
+    titel: Diese Website ist bewusst schlicht gehalten.
+    punkte:
+      - Keine Cookies
+      - Kein Tracking, keine Analysewerkzeuge
+      - Keine eingebundenen externen Dienste – keine Karten, Videos oder Social-Media-Plugins
+      - Schriftarten werden vom eigenen Server geladen, nicht von Google Fonts
+  verantwortlich_titel: Verantwortlich
+  abschnitte:
+    - titel: Beim Aufruf der Website
+      text: Damit die Seiten angezeigt werden können, verarbeitet der Hosting-Anbieter technisch notwendige Verbindungsdaten, zum Beispiel Ihre IP-Adresse sowie Datum und Uhrzeit des Abrufs.
+    - titel: Kontakt per Telefon oder E-Mail
+      text: Wenn Sie uns anrufen oder eine E-Mail schreiben, verwenden wir Ihre Angaben nur, um Ihr Anliegen zu bearbeiten.
+    - titel: Links zu anderen Anbietern
+      text: „Route planen“ und die Google-Bewertungen führen zu Google Maps, der Facebook-Link zu Facebook. Erst wenn Sie einen dieser Links anklicken, öffnet sich die Seite des Anbieters in einem neuen Fenster. Dort gelten die Datenschutzbestimmungen des jeweiligen Anbieters.
+  # Freier Text unter den Abschnitten (optional, z. B. eine vollständige Datenschutzerklärung)
+  text: ""
+  hinweis:
+    anzeigen: true
+    titel: Hinweis zur Vorschau
+    text: "Vor Livegang zu ergänzen: die vollständige Datenschutzerklärung – unter anderem Rechtsgrundlagen, Hosting-Anbieter, Speicherdauer, Ihre Rechte als betroffene Person und das Beschwerderecht bei der Aufsichtsbehörde."

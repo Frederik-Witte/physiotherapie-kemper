@@ -1,0 +1,30 @@
+# Team: Bereich „Ihr Team“ auf der Startseite.
+# Namen und Fotos nur mit Einverständnis der jeweiligen Person veröffentlichen.
+# Ohne Foto wird automatisch ein Monogramm (Initialen) gezeigt.
+
+anzeigen: true
+eyebrow: Ihr Team
+titel: Die Inhaber
+text: "Dirk Kemper und seine Söhne Björn und Yannick führen die Praxis gemeinsam – mit einem Grundsatz, der uns seit vielen Jahren begleitet:"
+zitat: „Der Mensch steht im Mittelpunkt.“
+hinweis: Unser ganzes Team stellen wir Ihnen hier bald ausführlich vor.
+
+mitglieder:
+  - name: Dirk Kemper
+    rolle: Inhaber · Geschäftsführer
+    foto: ""
+    text: ""
+    qualifikationen: []
+    sichtbar: true
+  - name: Björn Kemper
+    rolle: Inhaber · Physiotherapeut · Osteopath
+    foto: ""
+    text: ""
+    qualifikationen: []
+    sichtbar: true
+  - name: Yannick Kemper
+    rolle: Inhaber · Physiotherapeut · Osteopath
+    foto: ""
+    text: ""
+    qualifikationen: []
+    sichtbar: true

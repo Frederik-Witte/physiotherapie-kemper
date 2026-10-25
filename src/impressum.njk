@@ -1,0 +1,63 @@
+---
+layout: layouts/base.njk
+permalink: impressum.html
+seite: impressum
+---
+{%- set r = rechtliches.impressum -%}
+{%- set zeile = "grid gap-1 border-b border-line py-5 sm:grid-cols-[10rem_1fr] sm:gap-6" %}
+  <main id="main" class="py-14 sm:py-20 lg:py-24">
+    <div class="mx-auto grid max-w-[84rem] gap-10 px-5 sm:px-8 lg:grid-cols-12 lg:gap-12 lg:px-12">
+      <div class="lg:col-span-4">
+        <div class="lg:sticky lg:top-28">
+          <p class="eyebrow">{{ r.eyebrow }}</p>
+          <h1 class="font-display mt-5 text-[2.5rem] leading-[1.05] font-[420] tracking-[-0.02em] sm:mt-6 sm:text-[3.2rem]">{{ r.titel }}</h1>
+          {%- if r.intro %}
+          <p class="mt-5 max-w-[24rem]">{{ r.intro }}</p>
+          {%- endif %}
+        </div>
+      </div>
+      <div class="lg:col-span-7 lg:col-start-6">
+          <dl class="border-t border-ink/80">
+            {%- if r.herausgeber %}
+            <div class="{{ zeile }}">
+              <dt class="label sm:pt-1">Herausgeber</dt>
+              <dd class="text-ink">{{ r.herausgeber | zeilen | safe }}</dd>
+            </div>
+            {%- endif %}
+            <div class="{{ zeile }}">
+              <dt class="label sm:pt-1">Anschrift</dt>
+              <dd class="text-ink">{{ praxis.strasse }}<br>{{ praxis.plz }} {{ praxis.ort }}</dd>
+            </div>
+            <div class="{{ zeile }}">
+              <dt class="label sm:pt-1">Telefon</dt>
+              <dd class="text-ink"><a href="tel:{{ praxis.telefon_link }}" class="text-link">{{ praxis.telefon }}</a></dd>
+            </div>
+            {%- if praxis.fax %}
+            <div class="{{ zeile }}">
+              <dt class="label sm:pt-1">Fax</dt>
+              <dd class="text-ink">{{ praxis.fax }}</dd>
+            </div>
+            {%- endif %}
+            <div class="{{ zeile }}">
+              <dt class="label sm:pt-1">E-Mail</dt>
+              <dd class="text-ink"><a href="mailto:{{ praxis.email }}" class="text-link break-words">{{ praxis.email }}</a></dd>
+            </div>
+            {%- for angabe in r.weitere_angaben or [] %}
+            <div class="{{ zeile }}">
+              <dt class="label sm:pt-1">{{ angabe.bezeichnung }}</dt>
+              <dd class="richtext text-ink">{{ angabe.inhalt | markdown(praxis) | safe }}</dd>
+            </div>
+            {%- endfor %}
+          </dl>
+          {%- if r.text %}
+          <div class="richtext mt-10">{{ r.text | markdown(praxis) | safe }}</div>
+          {%- endif %}
+          {%- if r.hinweis and r.hinweis.anzeigen and r.hinweis.text %}
+          <aside class="mt-10 rounded-[1.25rem] border border-dashed border-oak/70 bg-stone/70 p-5 sm:p-6" aria-label="{{ r.hinweis.titel }}">
+            <p class="label !text-[#7d5528]">{{ r.hinweis.titel }}</p>
+            <p class="mt-2 text-[1rem] text-body">{{ r.hinweis.text }}</p>
+          </aside>
+          {%- endif %}
+      </div>
+    </div>
+  </main>

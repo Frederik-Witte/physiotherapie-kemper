@@ -1,0 +1,27 @@
+# Ablauf: „So läuft Ihre Behandlung ab“ – Schritte und der Kasten „Bitte mitbringen“.
+# {telefon} wird automatisch zur anklickbaren Telefonnummer aus den Praxisdaten.
+
+eyebrow: Ablauf
+titel: So läuft Ihre Behandlung ab.
+intro: "Von der Verordnung bis zur ersten Behandlung: Damit Sie wissen, was Sie erwartet – und was Sie mitbringen sollten."
+
+schritte:
+  - titel: Verordnung erhalten
+    text: Für eine Behandlung über die Krankenkasse benötigen Sie eine ärztliche Verordnung (Heilmittelverordnung). Diese stellt Ihnen Ihre Ärztin oder Ihr Arzt aus.
+  - titel: Termin vereinbaren
+    text: Rufen Sie uns an unter {telefon}. Termine stimmen wir individuell mit Ihnen ab – bitte planen Sie etwas Vorlauf ein.
+  - titel: Erster Termin
+    text: Zu Beginn sprechen wir über Ihre Beschwerden und Ihre Ziele und schauen gemeinsam, wo die Behandlung ansetzen soll.
+  - titel: Ihre Behandlung
+    text: Schritt für Schritt arbeiten wir mit Ihnen daran, dass Sie sich wieder freier und sicherer bewegen können.
+
+mitbringen:
+  label: Bitte mitbringen
+  titel: Für Ihren Termin
+  text: Fragen zur Kostenübernahme durch Ihre Krankenkasse beantworten wir Ihnen gern – vor Ort oder am Telefon.
+  punkte:
+    - Ihre ärztliche Verordnung
+    - Röntgenbilder, falls vorhanden
+    - Bequeme Sportkleidung
+    - Ein großes Handtuch
+  button: Termin vereinbaren

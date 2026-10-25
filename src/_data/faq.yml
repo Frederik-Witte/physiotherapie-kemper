@@ -1,0 +1,26 @@
+# Häufige Fragen. Antworten können Markdown enthalten (z. B. **fett** oder [Linktext](https://…)).
+# Platzhalter: {telefon} {email} {fax} {strasse} {plz} {ort} {lage} {route} werden aus den Praxisdaten gefüllt.
+# „oeffnungszeiten_anzeigen: true“ zeigt die Öffnungszeiten aus den Praxisdaten über der Antwort.
+
+eyebrow: Fragen
+titel: Häufige Fragen
+text: Ihre Frage ist nicht dabei? Rufen Sie uns gern an – wir helfen Ihnen weiter.
+
+fragen:
+  - frage: Wie bekomme ich einen Termin?
+    antwort: Am einfachsten telefonisch unter {telefon}. Termine stimmen wir individuell mit Ihnen und Ihrer Therapeutin oder Ihrem Therapeuten ab – bitte planen Sie dafür etwas Vorlauf ein.
+  - frage: Wann ist die Praxis geöffnet?
+    oeffnungszeiten_anzeigen: true
+    antwort: Termine nach Vereinbarung – rufen Sie uns einfach an.
+  - frage: Brauche ich eine ärztliche Verordnung?
+    antwort: "Für eine Behandlung über die gesetzliche Krankenkasse ja: Dafür benötigen Sie eine ärztliche Verordnung (Heilmittelverordnung). Bitte bringen Sie sie zum ersten Termin mit. Fragen zur Kostenübernahme durch Ihre Krankenkasse beantworten wir Ihnen gern vor Ort oder am Telefon."
+  - frage: Was sollte ich zur Behandlung mitbringen?
+    antwort: Bitte bringen Sie Ihre Verordnung, falls vorhanden Ihre Röntgenbilder, bequeme Sportkleidung und ein großes Handtuch mit.
+  - frage: Ist Krankengymnastik dasselbe wie Physiotherapie?
+    antwort: Im Alltag werden beide Begriffe oft gleich verwendet. Krankengymnastik ist die aktive Bewegungstherapie und ein zentraler Teil der Physiotherapie. Zur Physiotherapie gehören außerdem zum Beispiel Massagen und Lymphdrainage.
+  - frage: Welche Behandlung ist die richtige für mich?
+    antwort: Welche Therapie für Sie infrage kommt, legt Ihre Ärztin oder Ihr Arzt mit der Verordnung fest. Wir beraten Sie gern – vorab am Telefon oder persönlich in der Praxis.
+  - frage: Wie kann ich Sie außer telefonisch erreichen?
+    antwort: Per E-Mail an {email} oder per Fax an {fax}. Für Terminabsprachen ist ein Anruf meist der schnellste Weg.
+  - frage: Wo finde ich die Praxis?
+    antwort: In der {strasse} {lage}, {plz} {ort}. Sie erkennen uns an den großen Schaufenstern mit der Aufschrift „Krankengymnastik – Dirk Kemper & Söhne“. {route}

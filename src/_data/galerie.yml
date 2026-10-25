@@ -1,0 +1,33 @@
+# Praxis-Galerie („Die Praxis“): Überschrift, Text und Fotos der Räume.
+# Die Bilder werden in einem festen Raster angeordnet (groß/klein im Wechsel, das 5. Bild über die ganze Breite).
+
+eyebrow: Die Praxis
+titel: Hell, ruhig und gut ausgestattet.
+text: "Viel Tageslicht, warme Holzböden, klare Linien: In unseren modernen Räumen am Stöckener Markt finden Behandlung und Training unter einem Dach statt."
+
+bilder:
+  - bild: /assets/bilder/trainingsflaeche.jpg
+    alt: Großzügige Trainingsfläche mit Seilzugturm, Hantelbank und großen Fenstern
+    titel: Trainingsfläche
+    beschriftung: Platz für Übungen und Training
+    bildausschnitt: object-[45%_50%]
+  - bild: /assets/bilder/behandlungsraum.jpg
+    alt: Ruhiger, heller Behandlungsraum mit grauer Therapieliege, Lagerungsrolle und Fenster
+    titel: Behandlungsraum
+    beschriftung: ruhig und hell
+    bildausschnitt: object-[64%_50%] lg:object-[60%_50%]
+  - bild: /assets/bilder/behandlungsraum-rot.jpg
+    alt: Behandlungsraum mit roter Therapieliege im Sonnenlicht
+    titel: Behandlungsraum
+    beschriftung: mit viel Tageslicht
+    bildausschnitt: object-[52%_50%]
+  - bild: /assets/bilder/bewegungsraum.jpg
+    alt: Bewegungsraum mit Gymnastikbällen, Minitrampolin, Sprossenwand und Therapieliege
+    titel: Bewegungsraum
+    beschriftung: für Gymnastik und Koordination
+    bildausschnitt: object-[50%_60%]
+  - bild: /assets/bilder/geraeteraum.jpg
+    alt: Sonniger Geräteraum mit Beinpresse, Hantelstation und Ergometer vor bodentiefen Fenstern
+    titel: Gerätebereich
+    beschriftung: für die Krankengymnastik an Geräten (KGG)
+    bildausschnitt: origin-[62%_60%] scale-[1.07] object-[50%_62%]

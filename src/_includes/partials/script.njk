@@ -1,0 +1,84 @@
+  <script>
+  (function () {
+    var root = document.documentElement;
+
+    // Header: solid background once the page scrolls
+    var header = document.querySelector('.site-header');
+    var onScroll = function () { header.dataset.scrolled = window.scrollY > 8 ? 'true' : 'false'; };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Mobile menu (native modal dialog)
+    var dlg = document.getElementById('menu');
+    var openBtn = document.getElementById('menu-open');
+    var closeBtn = document.getElementById('menu-close');
+    if (dlg && typeof dlg.showModal === 'function') {
+      openBtn.addEventListener('click', function () {
+        dlg.showModal();
+        root.classList.add('menu-open');
+        openBtn.setAttribute('aria-expanded', 'true');
+      });
+      closeBtn.addEventListener('click', function () { dlg.close(); });
+      dlg.addEventListener('close', function () {
+        root.classList.remove('menu-open');
+        openBtn.setAttribute('aria-expanded', 'false');
+      });
+      dlg.addEventListener('click', function (e) {
+        if (e.target === dlg || e.target.closest('a[href^="#"]')) dlg.close();
+      });
+      window.matchMedia('(min-width: 80rem)').addEventListener('change', function (e) { if (e.matches && dlg.open) dlg.close(); });
+    } else if (openBtn) {
+      openBtn.addEventListener('click', function () { location.hash = '#kontakt'; });
+    }
+
+    // Call bar: stays out of the way while the hero button is on screen
+    var bar = document.querySelector('[data-callbar]');
+    var heroCta = document.querySelector('[data-hero-cta]');
+    if (bar && heroCta && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        bar.dataset.hidden = entries[0].isIntersecting ? 'true' : 'false';
+      }).observe(heroCta);
+    } else if (bar) {
+      bar.dataset.hidden = 'false';
+    }
+
+    // Leistungen: categories open/close on phones and tablets
+    document.querySelectorAll('[data-cat-toggle]').forEach(function (btn) {
+      var cat = btn.closest('[data-cat]');
+      btn.addEventListener('click', function () {
+        var open = !cat.classList.contains('is-open');
+        cat.classList.toggle('is-open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.querySelector('[data-closed]').hidden = open;
+        btn.querySelector('[data-open]').hidden = !open;
+      });
+    });
+
+    // Reveal on scroll (content stays visible without JS / with reduced motion)
+    var items = document.querySelectorAll('[data-reveal]');
+    var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!calm && 'IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } });
+      }, { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
+      items.forEach(function (el) { io.observe(el); });
+    } else {
+      items.forEach(function (el) { el.classList.add('is-in'); });
+    }
+
+    // Current section in the desktop navigation
+    var links = document.querySelectorAll('.nav-link');
+    if ('IntersectionObserver' in window && links.length) {
+      var map = {};
+      links.forEach(function (l) { map[l.getAttribute('href').slice(1)] = l; });
+      var spy = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          var l = map[en.target.id];
+          if (!l) return;
+          if (en.isIntersecting) { links.forEach(function (x) { x.removeAttribute('aria-current'); }); l.setAttribute('aria-current', 'true'); }
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      Object.keys(map).forEach(function (id) { var s = document.getElementById(id); if (s) spy.observe(s); });
+    }
+  })();
+  </script>

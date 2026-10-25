@@ -1,0 +1,78 @@
+{#- Footer (all pages) -#}
+{%- set start = (seite == "start") -%}
+{%- set basis = "" if start else "/" -%}
+{%- set offen = praxis.oeffnungszeiten | geoeffnet -%}
+{%- set fuss = navigation.fusszeile %}
+  <!-- ============ Footer ============ -->
+  <footer class="bg-navy-950 pb-24 text-paper/80 lg:pb-0" style="--mark-accent:#9cc8ef">
+    <div class="mx-auto max-w-[84rem] px-5 pt-14 sm:px-8 lg:px-12 lg:pt-20">
+      <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
+        <div class="lg:col-span-4">
+          <a href="{{ '#top' if start else '/' }}" class="inline-flex min-h-12 items-center gap-3 text-paper">
+            <svg class="size-10 shrink-0" aria-hidden="true"><use href="#mark"/></svg>
+            <span class="leading-none">
+              <span class="font-display block text-[1.35rem] font-[470]">{{ praxis.name }}</span>
+              <span class="mt-1.5 block text-[0.875rem] font-semibold tracking-[0.12em] text-paper/75 uppercase">{{ praxis.rechtsname }}</span>
+            </span>
+          </a>
+          {%- if fuss.slogan %}
+          <p class="font-display mt-6 text-[1.25rem] leading-snug text-paper/90 italic sm:text-[1.35rem]">{{ fuss.slogan | keinUmbruch | safe }}</p>
+          {%- endif %}
+          {%- if praxis.facebook %}
+          <a href="{{ praxis.facebook }}" target="_blank" rel="noopener" class="mt-6 inline-flex min-h-11 items-center gap-3 text-paper/85 hover:text-paper">
+            <span class="grid size-10 place-items-center rounded-full ring-1 ring-white/25"><svg class="size-5" aria-hidden="true"><use href="#i-facebook"/></svg></span>
+            Facebook
+            <span class="sr-only">(öffnet in einem neuen Fenster)</span>
+          </a>
+          {%- endif %}
+          {%- if praxis.instagram %}
+          <a href="{{ praxis.instagram }}" target="_blank" rel="noopener" class="mt-6 {% if praxis.facebook %}ml-5 {% endif %}inline-flex min-h-11 items-center gap-3 text-paper/85 hover:text-paper">
+            <span class="grid size-10 place-items-center rounded-full ring-1 ring-white/25"><svg class="size-5" aria-hidden="true"><use href="#i-instagram"/></svg></span>
+            Instagram
+            <span class="sr-only">(öffnet in einem neuen Fenster)</span>
+          </a>
+          {%- endif %}
+        </div>
+        <div class="grid grid-cols-2 gap-x-6 gap-y-10 lg:col-span-8 lg:grid-cols-4">
+          <div>
+            <h2 class="label !text-paper/70">Adresse</h2>
+            <p class="mt-4 text-paper/90">{{ praxis.strasse }}<br>{{ praxis.plz }} {{ praxis.ort }}{% if praxis.lage %}<br>{{ praxis.lage }}{% endif %}</p>
+          </div>
+          <div>
+            <h2 class="label !text-paper/70">Öffnungszeiten</h2>
+            <p class="mt-4 text-paper/90">{% if offen.length %}{% for z in offen %}{{ z.tage }} {{ z.zeiten }}<br>{% endfor %}{{ praxis.termin_hinweis }}{% else %}{{ praxis.ohne_oeffnungszeiten }}{% endif %}</p>
+          </div>
+          <div>
+            <h2 class="label !text-paper/70">Kontakt</h2>
+            <ul class="mt-2.5 text-paper/90">
+              <li><a href="tel:{{ praxis.telefon_link }}" class="inline-flex min-h-11 min-w-11 items-center hover:text-paper">Tel. {{ praxis.telefon | nbsp }}</a></li>
+              {%- if praxis.fax %}
+              <li class="flex min-h-11 items-center">Fax {{ praxis.fax | nbsp }}</li>
+              {%- endif %}
+              <li><a href="mailto:{{ praxis.email }}" class="inline-flex min-h-11 min-w-11 items-center hover:text-paper">E-Mail schreiben</a></li>
+            </ul>
+          </div>
+          {%- if fusslinks.length %}
+          <div>
+            <h2 class="label !text-paper/70">{{ fuss.links_titel }}</h2>
+            <ul class="mt-2.5 text-paper/90">
+              {%- for link in fusslinks %}
+              <li><a href="{{ basis }}#{{ link.ziel }}" class="inline-flex min-h-11 min-w-11 items-center hover:text-paper">{{ link.text }}</a></li>
+              {%- endfor %}
+            </ul>
+          </div>
+          {%- endif %}
+        </div>
+      </div>
+      <div class="mt-12 flex flex-col gap-2 border-t border-white/12 py-6 text-[1rem] sm:flex-row sm:items-center sm:justify-between lg:mt-16">
+        <p>© {{ site.jahr }} {{ praxis.rechtsname }}</p>
+        <ul class="flex gap-6">
+          <li><a href="/impressum.html" class="inline-flex min-h-11 min-w-11 items-center hover:text-paper">Impressum</a></li>
+          <li><a href="/datenschutz.html" class="inline-flex min-h-11 min-w-11 items-center hover:text-paper">Datenschutz</a></li>
+        </ul>
+      </div>
+      {%- if fuss.hinweis %}
+      <p class="pb-8 text-[0.875rem] text-paper/65">{{ fuss.hinweis }}</p>
+      {%- endif %}
+    </div>
+  </footer>

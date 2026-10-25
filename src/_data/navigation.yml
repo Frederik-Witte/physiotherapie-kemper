@@ -1,0 +1,37 @@
+# Navigation & Fußzeile.
+# „ziel“ ist der Bereich der Startseite: willkommen, team, leistungen, praxis, ablauf, fragen oder kontakt.
+# Links zu ausgeblendeten Bereichen (z. B. Team) werden automatisch weggelassen.
+
+hauptmenue:
+  - ziel: willkommen
+    text: Über uns
+    text_menue: Über uns
+  - ziel: leistungen
+    text: Leistungen
+    text_menue: Leistungen
+  - ziel: praxis
+    text: Räume
+    text_menue: Unsere Räume
+  - ziel: ablauf
+    text: Ablauf
+    text_menue: Ablauf
+  - ziel: fragen
+    text: Fragen
+    text_menue: Häufige Fragen
+  - ziel: kontakt
+    text: Kontakt
+    text_menue: Kontakt & Anfahrt
+
+fusszeile:
+  slogan: Die Physiotherapie in Hannover-Stöcken – seit vielen Jahren.
+  links_titel: Seite
+  links:
+    - ziel: leistungen
+      text: Leistungen
+    - ziel: team
+      text: Team
+    - ziel: praxis
+      text: Unsere Räume
+    - ziel: kontakt
+      text: Kontakt
+  hinweis: Designentwurf · Vorschau der neuen Website

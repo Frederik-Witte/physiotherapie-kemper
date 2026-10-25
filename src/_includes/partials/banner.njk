@@ -1,0 +1,10 @@
+{#- Slim announcement bar on top of every page (praxis.yml → hinweis_banner) -#}
+{%- set banner = praxis.hinweis_banner -%}
+{%- if banner and banner.aktiv and banner.text %}
+  <div class="bg-navy-900 text-paper" role="region" aria-label="Aktueller Hinweis">
+    <div class="mx-auto flex max-w-[84rem] items-start gap-3 px-5 py-2.5 text-[1rem] leading-snug sm:items-center sm:justify-center sm:px-8 lg:px-12">
+      <svg class="mt-0.5 size-[1.1rem] shrink-0 text-brand-light sm:mt-0" aria-hidden="true"><use href="#i-clock"/></svg>
+      <p class="min-w-0">{{ banner.text | platzhalter(praxis, "light") | safe }}</p>
+    </div>
+  </div>
+{%- endif %}

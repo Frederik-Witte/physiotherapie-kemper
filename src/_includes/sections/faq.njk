@@ -1,0 +1,49 @@
+{#- Häufige Fragen (faq.yml) -#}
+{%- set fragen = faq.fragen or [] -%}
+{%- set zeiten = praxis.oeffnungszeiten | oeffnungszeiten -%}
+{%- if fragen.length %}
+
+    <!-- ============ Häufige Fragen ============ -->
+    <section id="fragen" class="py-16 sm:py-24 lg:py-28" aria-labelledby="fragen-title">
+      <div class="mx-auto grid max-w-[84rem] gap-10 px-5 sm:px-8 lg:grid-cols-12 lg:gap-12 lg:px-12">
+        <div class="lg:col-span-4">
+          <div class="lg:sticky lg:top-28">
+            <p class="eyebrow">{{ faq.eyebrow }}</p>
+            <h2 id="fragen-title" class="font-display mt-5 text-[2.2rem] leading-[1.08] font-[420] tracking-[-0.018em] sm:mt-6 sm:text-[2.9rem] xl:text-[3.3rem]">{{ faq.titel }}</h2>
+            {%- if faq.text %}
+            <p class="mt-5 max-w-[24rem]">{{ faq.text | platzhalter(praxis) | safe }}</p>
+            {%- endif %}
+            <a href="tel:{{ praxis.telefon_link }}" class="mt-4 inline-flex min-h-12 items-center gap-2.5 font-semibold text-ink hover:text-brand">
+              <svg class="size-5 text-brand" aria-hidden="true"><use href="#i-phone"/></svg>
+              {{ praxis.telefon | nbsp }}
+            </a>
+          </div>
+        </div>
+        <div class="border-t border-ink/80 lg:col-span-7 lg:col-start-6">
+          {%- for f in fragen %}
+          <details class="acc border-b border-line" name="faq">
+            <summary class="flex min-h-[4.75rem] items-center justify-between gap-5 py-4"><span class="font-display text-[1.3rem] leading-snug font-[430] text-ink sm:text-[1.5rem]">{{ f.frage }}</span><span class="acc-icon" aria-hidden="true"></span></summary>
+            {%- if f.oeffnungszeiten_anzeigen %}
+            <div class="max-w-[40rem] pr-12 pb-7">
+              {%- if zeiten.length %}
+              <dl class="grid max-w-[22rem] grid-cols-[auto_1fr] gap-x-6 gap-y-1">
+                {%- for z in zeiten %}
+                <dt class="font-semibold text-ink">{{ z.tage }}</dt><dd>{{ z.zeiten }}{% if z.uhr %} Uhr{% endif %}</dd>
+                {%- endfor %}
+              </dl>
+              {%- else %}
+              <p>{{ praxis.ohne_oeffnungszeiten }}</p>
+              {%- endif %}
+              {%- if f.antwort %}
+              <div class="richtext mt-3">{{ f.antwort | markdown(praxis) | safe }}</div>
+              {%- endif %}
+            </div>
+            {%- else %}
+            <div class="richtext max-w-[40rem] pr-12 pb-7">{{ f.antwort | markdown(praxis) | safe }}</div>
+            {%- endif %}
+          </details>
+          {%- endfor %}
+        </div>
+      </div>
+    </section>
+{%- endif %}

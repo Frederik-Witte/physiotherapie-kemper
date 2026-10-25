@@ -1,0 +1,96 @@
+# Leistungen: Einleitung, Leistungsbereiche (Gruppen) mit ihren einzelnen Leistungen und der Beratungs-Hinweis.
+# Ein senkrechter Strich | im Namen eines Bereichs markiert, wo ein langes Wort in der Überschrift getrennt werden darf
+# (z. B. „Lymph|drainage“). Auf der Website ist der Strich nicht zu sehen.
+
+eyebrow: Leistungen
+titel: Was wir für Sie tun können.
+intro: "Ob Rehabilitation oder Prävention: Der Weg zurück zur alten Stärke muss kein steiniger sein. Welche Behandlung zu Ihnen passt, besprechen wir gern persönlich mit Ihnen."
+
+gruppen:
+  - titel: Krankengymnastik & Bewegung
+    kurzuebersicht: KG · KG an Geräten · Atemtherapie · Handtherapie · Traktion
+    uebersicht: Krankengymnastik, KG an Geräten, KG auf neurophysiologischer Grundlage, Atemtherapie, Handtherapie, Traktion
+    text: Aktive Therapie für mehr Kraft, Beweglichkeit und Sicherheit im Alltag – auf der Behandlungsliege, im Bewegungsraum und an Geräten.
+    bild: /assets/bilder/geraeteraum.jpg
+    bild_alt: Gerätebereich mit Beinpresse, Hantelstation und Ergometer
+    bildausschnitt: object-[24%_62%] lg:object-[40%_60%]
+    leistungen:
+      - name: Krankengymnastik
+        kuerzel: KG
+        beschreibung: Gezielte Übungen und Behandlungstechniken mit dem Ziel, Beweglichkeit, Kraft und Koordination zu verbessern – etwa nach Verletzungen und Operationen oder bei chronischen Beschwerden.
+      - name: Krankengymnastik an Geräten
+        kuerzel: KGG
+        beschreibung: Training an medizinischen Geräten unter therapeutischer Anleitung. Ziel ist es, gezielt Kraft, Ausdauer und Stabilität aufzubauen – zum Beispiel nach Operationen oder bei Rückenbeschwerden.
+      - name: Krankengymnastik auf neurophysiologischer Grundlage
+        beschreibung: Krankengymnastik für Menschen mit Erkrankungen des Nervensystems, etwa nach einem Schlaganfall oder bei Multipler Sklerose. Ziel ist es, Bewegungsabläufe neu anzubahnen und zu verbessern.
+      - name: Atemtherapie
+        beschreibung: Atem- und Haltungsübungen, die das Atmen erleichtern und vertiefen sollen – zum Beispiel bei Erkrankungen der Atemwege oder nach Operationen.
+      - name: Handtherapie
+        beschreibung: Behandlung von Hand und Handgelenk nach Verletzungen, Operationen oder bei Erkrankungen – mit dem Ziel, Beweglichkeit, Kraft und Feinmotorik im Alltag zu fördern.
+      - name: Traktionsbehandlungen
+        beschreibung: Sanfter, dosierter Zug an Gelenken oder an der Wirbelsäule. Er kann Druck von Gelenken und Bandscheiben nehmen und Schmerzen lindern.
+
+  - titel: Manuelle Verfahren & Tapes
+    kurzuebersicht: Manuelle Therapie · Osteopathie · Faszien · Flossing · Tapen
+    uebersicht: Manuelle Therapie, Osteopathie, Faszienbehandlungen, Medical Flossing, Tapen, Kinesiology-Tapen
+    text: Behandlung mit den Händen und unterstützende Techniken für Gelenke, Muskeln und Bindegewebe.
+    bild: /assets/bilder/behandlungsraum.jpg
+    bild_alt: Ruhiger Behandlungsraum mit grauer Therapieliege und Lagerungsrolle
+    bildausschnitt: object-[66%_72%] lg:object-[62%_70%]
+    leistungen:
+      - name: Manuelle Therapie
+        kuerzel: MT
+        beschreibung: Untersuchung und Behandlung von Funktionsstörungen an Gelenken, Muskeln und Nerven – mit gezielten Handgriffen und sanften Mobilisationstechniken.
+      - name: Osteopathie
+        beschreibung: "Ein ganzheitlicher manueller Ansatz: Der Körper wird als Einheit betrachtet, Zusammenhänge werden mit den Händen ertastet und behandelt."
+      - name: Faszienbehandlungen
+        beschreibung: Gezielte Techniken für das Bindegewebe, das Muskeln und Organe umhüllt und verbindet – um Spannungen zu lösen und die Beweglichkeit zu fördern.
+      - name: Medical Flossing
+        beschreibung: Ein elastisches Band wird kurzzeitig fest um ein Gelenk oder einen Muskel gewickelt, während Sie sich bewegen. Das kann Schmerzen lindern und die Beweglichkeit fördern.
+      - name: Tapen
+        beschreibung: Feste, unelastische Tapeverbände sollen Gelenke stabilisieren und entlasten – etwa nach Verletzungen oder beim Sport.
+      - name: Kinesiology-Tapen
+        beschreibung: Elastische Tapes unterstützen Muskeln und Gelenke, ohne die Bewegung einzuschränken – und begleiten die Therapie auch zwischen den Terminen.
+
+  - titel: "Massage & Lymph|drainage"
+    kurzuebersicht: Klassische Massage · Bindegewebsmassage · Lymphdrainage · Fußreflexzonen
+    uebersicht: Klassische Massagetherapie, Bindegewebsmassage, Manuelle Lymphdrainage, Fußreflexzonenmassage
+    text: Massagen haben sich bei Rücken- und Gelenkbeschwerden bewährt. Mit unserem Massageangebot möchten wir Ihnen helfen, entspannter durch den Alltag zu gehen.
+    bild: /assets/bilder/behandlungsraum-rot.jpg
+    bild_alt: Rote Therapieliege in einem sonnigen Behandlungsraum
+    bildausschnitt: object-[38%_66%] lg:object-[45%_62%]
+    leistungen:
+      - name: Klassische Massagetherapie
+        kuerzel: KMT
+        beschreibung: Mit verschiedenen Grifftechniken wird die Muskulatur gelockert. Die Massage soll die Durchblutung fördern und Verspannungen lösen.
+      - name: Bindegewebsmassage
+        kuerzel: BGM
+        beschreibung: "Eine Form der Reflexzonentherapie: Mit ziehenden Griffen wird das Bindegewebe unter der Haut behandelt. Über Reflexwege soll so die Durchblutung angeregt werden."
+      - name: Manuelle Lymphdrainage
+        kuerzel: MLD
+        beschreibung: Sanfte, rhythmische Griffe sollen den Abfluss der Lymphflüssigkeit anregen – zum Beispiel bei Schwellungen nach Operationen oder Verletzungen und bei Lymphödemen.
+      - name: Fußreflexzonenmassage
+        beschreibung: Druck- und Grifftechniken an bestimmten Zonen der Füße. Sie wirken entspannend und sollen über die Reflexzonen den ganzen Körper ansprechen.
+
+  - titel: Spezialgebiete
+    kurzuebersicht: Bobath · CMD · Beckenboden · Rückbildung nach der Geburt
+    uebersicht: Bobath-Therapie, CMD-Therapie (Kiefergelenk), Beckenbodengymnastik, Rückbildungsgymnastik nach der Geburt
+    text: Besondere Konzepte für das Nervensystem, das Kiefergelenk und den Beckenboden – vom Schlaganfall bis zur Rückbildung nach der Geburt.
+    bild: /assets/bilder/bewegungsraum.jpg
+    bild_alt: Bewegungsraum mit limettengrünen Gymnastikbällen und Minitrampolin
+    bildausschnitt: object-[70%_30%] lg:object-[60%_45%]
+    leistungen:
+      - name: Bobath-Therapie
+        kuerzel: ZNS
+        kuerzel_erklaerung: Zentrales Nervensystem
+        beschreibung: Ein Therapiekonzept für Menschen mit Erkrankungen des zentralen Nervensystems, etwa nach einem Schlaganfall. Alltägliche Bewegungen werden Schritt für Schritt geübt und gefestigt.
+      - name: CMD-Therapie
+        zusatz: Kiefergelenk
+        beschreibung: Behandlung von Funktionsstörungen des Kiefergelenks (craniomandibuläre Dysfunktion). Sie können sich zum Beispiel durch Kieferknacken, Zähneknirschen oder Kopf- und Nackenschmerzen bemerkbar machen.
+      - name: Beckenbodengymnastik
+        beschreibung: Gezieltes Training der Beckenbodenmuskulatur – für Frauen und Männer, etwa bei Blasenschwäche oder nach Operationen im Beckenbereich.
+      - name: Rückbildungsgymnastik
+        beschreibung: Übungen nach der Geburt, die Beckenboden, Bauch und Rücken behutsam kräftigen und Sie im neuen Alltag unterstützen.
+
+beratung:
+  text: Sie sind unsicher, welche Behandlung die richtige ist? Wir beraten Sie gern.

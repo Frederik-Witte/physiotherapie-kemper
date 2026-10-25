@@ -1,0 +1,73 @@
+# Builds the Eleventy site and publishes it to GitHub Pages.
+# Runs on every push to main (including every save in the CMS) and can be started by hand
+# under Actions → "Website veröffentlichen" → "Run workflow".
+name: Website veröffentlichen
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Least privilege: the workflow itself may only read the repository. The rights to publish
+# (pages: write, id-token: write) are granted to the deploy job alone, so they are never
+# available while npm ci and the build run third-party code.
+permissions:
+  contents: read
+
+# Only one deployment at a time. A running deployment is never cancelled,
+# so a quick second save in the CMS simply waits for the first one to finish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read # actions/configure-pages reads the Pages settings
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          # The build never pushes; keep the token out of .git/config during npm ci.
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+        env:
+          # GitHub Pages serves the project site under /physiotherapie-kemper/.
+          # For a custom domain, change this to "/" (see README.md).
+          PATH_PREFIX: /physiotherapie-kemper/
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v6
+
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write # to deploy to GitHub Pages
+      id-token: write # to verify that the deployment comes from this workflow
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

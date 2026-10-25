@@ -1,0 +1,46 @@
+{#- Site header. On the homepage links are in-page anchors, on subpages they point back to the homepage. -#}
+{%- set start = (seite == "start") -%}
+{%- set basis = "" if start else "/" -%}
+  <!-- ============ Header ============ -->
+  <header {% if start %}id="top" class="site-header sticky top-0 z-40 border-b border-transparent"{% else %}class="site-header is-solid sticky top-0 z-40 border-b"{% endif %}>
+    <div class="mx-auto flex h-[4.25rem] max-w-[84rem] items-center justify-between gap-4 px-5 sm:px-8 lg:h-20 lg:px-12">
+      <a href="{{ '#top' if start else '/' }}" class="flex min-h-12 items-center gap-3 text-ink" aria-label="{{ praxis.name }} – {{ 'zum Seitenanfang' if start else 'zur Startseite' }}">
+        <svg class="size-9 shrink-0 lg:size-10" aria-hidden="true"><use href="#mark"/></svg>
+        <span class="leading-none sm:hidden">
+          <span class="block text-[0.6875rem] font-semibold tracking-[0.22em] text-body uppercase">{{ praxis.name | erstesWort }}</span>
+          <span class="font-display mt-1 block text-[1.5rem] font-[470] tracking-[-0.01em]">{{ praxis.name | restWorte }}</span>
+        </span>
+        <span class="hidden leading-none sm:block">
+          <span class="font-display block text-[1.2rem] font-[470] tracking-[-0.01em] lg:text-[1.32rem]">{{ praxis.name }}</span>
+          <span class="mt-1.5 block text-[0.68rem] font-semibold tracking-[0.2em] text-muted uppercase">{{ praxis.ort }}{% if praxis.stadtteil %}-{{ praxis.stadtteil }}{% endif %}</span>
+        </span>
+      </a>
+
+      <nav aria-label="Hauptnavigation" class="hidden xl:block">
+        <ul class="flex items-center gap-8 text-[1rem] font-medium text-ink">
+          {%- for link in hauptmenue %}
+          <li><a class="nav-link" href="{{ basis }}#{{ link.ziel }}">{{ link.text }}</a></li>
+          {%- endfor %}
+        </ul>
+      </nav>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <a href="tel:{{ praxis.telefon_link }}" class="btn btn-primary hidden !min-h-12 !gap-2.5 !px-5 !text-base md:inline-flex">
+          <svg class="size-[1.1rem]" aria-hidden="true"><use href="#i-phone"/></svg>
+          <span><span class="sr-only">Anrufen: </span>{{ praxis.telefon | nbsp }}</span>
+        </a>
+        {%- if start %}
+        <button type="button" id="menu-open" class="js-only inline-flex min-h-12 items-center gap-2.5 rounded-full border border-line px-4 font-semibold text-ink transition-colors hover:border-ink xl:hidden" aria-haspopup="dialog" aria-controls="menu" aria-expanded="false">
+          <svg class="size-5" aria-hidden="true"><use href="#i-menu"/></svg>
+          Menü
+        </button>
+        <a href="#kontakt" class="no-js-only inline-flex min-h-12 items-center rounded-full border border-line px-4 font-semibold text-ink xl:hidden">Kontakt</a>
+        {%- else %}
+        <a href="/" class="inline-flex min-h-12 items-center gap-2 rounded-full border border-line px-4 font-semibold text-ink transition-colors hover:border-ink xl:hidden">
+          <svg class="size-5 rotate-180" aria-hidden="true"><use href="#i-arrow"/></svg>
+          Startseite
+        </a>
+        {%- endif %}
+      </div>
+    </div>
+  </header>

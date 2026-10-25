@@ -1,0 +1,10 @@
+# Karriere: kleine Stellenanzeige im Team-Bereich der Startseite.
+# „kontakt“ leer lassen = Bewerbungen gehen an die E-Mail-Adresse aus den Praxisdaten.
+
+anzeigen: true
+label: Karriere
+titel: Wir suchen Verstärkung
+text: Physiotherapeut/in (m/w/d) in Voll- oder Teilzeit – vormittags, nachmittags oder abends. Unbefristet, ab sofort. Ihre Bewerbung senden Sie gern per E-Mail.
+button: Per E-Mail bewerben
+betreff: Bewerbung als Physiotherapeut/in
+kontakt: ""

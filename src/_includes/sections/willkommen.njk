@@ -1,0 +1,44 @@
+{#- Über uns (startseite.yml → willkommen) -#}
+{%- set w = startseite.willkommen -%}
+{%- if w %}
+
+    <!-- ============ Über uns ============ -->
+    <section id="willkommen" class="pt-16 pb-14 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-24" aria-labelledby="willkommen-title">
+      <div class="mx-auto grid max-w-[84rem] gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-x-12 lg:px-12">
+        {%- if w.bild %}
+        <div class="order-2 lg:order-1 lg:col-span-5" data-reveal>
+          <figure class="relative">
+            <div class="photo mr-12 aspect-[4/3] rounded-[1.75rem] sm:mr-20 lg:mr-14 lg:aspect-[4/5] lg:rounded-[2rem]">
+              <img src="{{ w.bild }}" sizes="(min-width: 1024px) 62vw, 100vw" loading="lazy" decoding="async"{% if w.bildausschnitt %} class="{{ w.bildausschnitt }}"{% endif %} alt="{{ w.bild_alt }}">
+            </div>
+            {%- if w.bild_klein %}
+            <div class="photo absolute right-0 bottom-0 aspect-square w-[42%] rounded-[1.25rem] shadow-[0_0_0_6px_var(--color-paper)] lg:w-[44%] lg:rounded-[1.5rem] lg:shadow-[0_0_0_8px_var(--color-paper)]">
+              <img src="{{ w.bild_klein }}" eleventy:widths="400,600" sizes="(min-width: 1024px) 15vw, 42vw" loading="lazy" decoding="async" alt="{{ w.bild_klein_alt }}">
+            </div>
+            {%- endif %}
+            {%- if w.bildunterschrift %}
+            <figcaption class="mt-4 w-[54%] text-[1rem] leading-snug text-muted">{{ w.bildunterschrift }}</figcaption>
+            {%- endif %}
+          </figure>
+        </div>
+        {%- endif %}
+        <div class="order-1 lg:order-2 lg:col-span-6 lg:col-start-7 lg:pt-6">
+          <p class="eyebrow">{{ w.eyebrow }}</p>
+          <h2 id="willkommen-title" class="font-display mt-5 text-[2.2rem] leading-[1.08] font-[420] tracking-[-0.018em] sm:mt-6 sm:text-[2.9rem] xl:text-[3.3rem]">{{ w.titel }}</h2>
+          {%- if w.zitat %}
+          <p class="font-display mt-6 text-[1.4rem] leading-[1.4] font-[400] text-ink italic sm:mt-8 sm:text-[1.6rem]">
+            {{ w.zitat }}
+          </p>
+          {%- endif %}
+          {%- if w.text %}
+          <div class="mt-6 max-w-[36rem] space-y-5 sm:mt-8">
+            {{ w.text | markdown(praxis) | safe }}
+          </div>
+          {%- endif %}
+          {%- if w.unterschrift %}
+          <p class="font-display mt-8 text-[1.3rem] font-[420] text-ink italic">{{ w.unterschrift }}</p>
+          {%- endif %}
+        </div>
+      </div>
+    </section>
+{%- endif %}

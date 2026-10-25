@@ -1,0 +1,1067 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+#
+# Sveltia CMS – Konfiguration für die Website der Physiotherapie Kemper.
+# Die Redaktionsoberfläche liegt unter /admin/ und bearbeitet genau die YAML-Dateien in src/_data/.
+# Wichtig: Feldnamen, Verschachtelung und Typen müssen exakt zu den YAML-Dateien passen,
+# sonst speichert das CMS Daten in einer Form, die die Vorlagen nicht mehr verstehen.
+# Doku: https://sveltiacms.app/en/docs
+
+app_title: Website bearbeiten – Physiotherapie Kemper
+logo:
+  src: logo.svg
+
+backend:
+  name: github
+  repo: Frederik-Witte/physiotherapie-kemper
+  branch: main
+  # Anmeldung mit persönlichem Zugriffstoken (siehe ANLEITUNG.md).
+  # Für einen „Mit GitHub anmelden“-Knopf später einen OAuth-Client einrichten (base_url) und „oauth“ ergänzen.
+  auth_methods: [token]
+  commit_messages:
+    create: 'Inhalt angelegt: {{slug}}'
+    update: 'Inhalt aktualisiert: {{slug}}'
+    delete: 'Inhalt gelöscht: {{slug}}'
+    uploadMedia: 'Bild hochgeladen: {{path}}'
+    deleteMedia: 'Bild gelöscht: {{path}}'
+
+site_url: https://frederik-witte.github.io/physiotherapie-kemper/
+display_url: https://frederik-witte.github.io/physiotherapie-kemper/
+
+# Alle Fotos liegen in src/assets/bilder/ und werden beim Bauen der Website automatisch
+# in passende Größen (WebP + JPEG) umgerechnet. In den YAML-Dateien steht der Pfad /assets/bilder/<datei>.
+media_folder: src/assets/bilder
+public_folder: /assets/bilder
+media_libraries:
+  default:
+    config:
+      max_file_size: 26214400 # 25 MB pro Datei (vor der automatischen Verkleinerung)
+      slugify_filename: true # „Foto Empfang Ä.jpg“ → „foto-empfang-a.webp“
+      transformations:
+        # Hochgeladene Fotos (auch iPhone-HEIC) werden im Browser verkleinert und als WebP gespeichert;
+        # dabei werden Kamera-Metadaten wie der Aufnahmeort entfernt.
+        raster_image:
+          format: webp
+          quality: 85
+          width: 2000
+          height: 2000
+
+slug:
+  encoding: ascii
+  clean_accents: true
+
+# Die Vorschau-Spalte zeigt nur eine Liste der Felder, nicht die echte Website – deshalb aus.
+editor:
+  preview: false
+
+# Standard für alle Markdown-Felder: nur die Formatierungen, die die Website auch darstellt.
+field_defaults:
+  richtext:
+    buttons: [bold, italic, link, bulleted-list, numbered-list]
+    editor_components: []
+    modes: [rich_text, raw]
+
+collections:
+  - name: inhalte
+    label: Inhalte
+    label_singular: Inhalt
+    icon: edit_document
+    description: 'Alle Texte, Fotos und Angaben der Website. Nach dem Speichern ist die Änderung nach etwa 1–2 Minuten online. In vielen Texten können Sie Platzhalter wie {telefon}, {email}, {fax}, {strasse}, {strasse_lang}, {plz}, {ort}, {lage} oder {route} schreiben – sie werden automatisch mit den Angaben aus den „Praxisdaten“ gefüllt.'
+    files:
+      # ------------------------------------------------------------------ praxis.yml
+      - name: praxis
+        label: Praxisdaten & Öffnungszeiten
+        icon: storefront
+        file: src/_data/praxis.yml
+        preview_path: /
+        fields:
+          - name: name
+            label: Name der Praxis
+            widget: string
+            comment: 'Praxisdaten & Kontakt – werden überall auf der Website verwendet.\nIn anderen Texten füllen Platzhalter wie {telefon} {email} {strasse} {lage} diese Angaben automatisch ein.'
+            hint: 'Erscheint im Logo, in der Fußzeile und beim Teilen der Seite. Im Logo auf dem Handy steht das erste Wort klein über dem Rest (z. B. „Physiotherapie“ / „Kemper“).'
+          - name: rechtsname
+            label: Rechtlicher Name
+            widget: string
+            hint: 'z. B. „Dirk Kemper + Söhne GbR“. Steht in der Fußzeile, im Impressum und in der Datenschutzerklärung.'
+          - name: telefon
+            label: Telefonnummer (so wie sie angezeigt wird)
+            widget: string
+            hint: 'z. B. „(0511) 795887“. Wenn Sie die Nummer ändern, passen Sie bitte auch das nächste Feld an.'
+          - name: telefon_link
+            label: Telefonnummer zum Anrufen
+            widget: string
+            hint: 'Dieselbe Nummer in internationaler Schreibweise ohne Leerzeichen und ohne die 0 der Vorwahl, z. B. „+49511795887“. Wird für alle Anruf-Knöpfe verwendet.'
+            pattern: ['^\+[1-9][0-9]{5,14}$', 'Bitte im Format +49… ohne Leerzeichen, Klammern oder Bindestriche eingeben.']
+          - name: fax
+            label: Faxnummer
+            widget: string
+            required: false
+            hint: 'Leer lassen, wenn kein Fax angezeigt werden soll.'
+          - name: email
+            label: E-Mail-Adresse
+            widget: string
+            type: email
+          - name: strasse
+            label: Straße und Hausnummer
+            widget: string
+            hint: 'z. B. „Moosbergstr. 4“. Im Fließtext kann {strasse_lang} verwendet werden – dann wird „str.“ zu „straße“ ausgeschrieben.'
+          - name: plz
+            label: Postleitzahl
+            widget: string
+            pattern: ['^[0-9]{5}$', 'Bitte eine fünfstellige Postleitzahl eingeben.']
+          - name: ort
+            label: Ort
+            widget: string
+          - name: stadtteil
+            label: Stadtteil
+            widget: string
+            required: false
+            hint: 'Erscheint z. B. als „Hannover-Stöcken“ unter dem Logo und bei der Adresse.'
+          - name: lage
+            label: Lage
+            widget: string
+            required: false
+            hint: 'Kurze Ortsangabe, z. B. „am Stöckener Markt“. Erscheint bei der Adresse und über den Platzhalter {lage} in Texten.'
+          - name: routenlink
+            label: Link „Route planen“
+            widget: string
+            type: url
+            hint: 'Google-Maps-Link zur Praxis. Wird für alle Knöpfe „Route planen“ verwendet.'
+          - name: facebook
+            label: Facebook-Seite
+            widget: string
+            type: url
+            required: false
+            hint: 'Vollständiger Link (https://…). Leer lassen blendet das Facebook-Symbol in der Fußzeile aus.'
+          - name: instagram
+            label: Instagram-Profil
+            widget: string
+            type: url
+            required: false
+            hint: 'Vollständiger Link (https://…). Leer lassen, solange es kein offizielles Instagram-Profil gibt.'
+          - name: oeffnungszeiten
+            label: Öffnungszeiten
+            label_singular: Zeile
+            widget: list
+            required: false
+            summary: '{{tage}}: {{zeiten}}'
+            hint: 'Eine Zeile pro Tag oder Tagesgruppe, in der gewünschten Reihenfolge. Alle Zeilen entfernen = statt der Zeiten erscheint der Ersatztext weiter unten.'
+            fields:
+              - name: tage
+                label: Tage
+                widget: string
+                hint: 'z. B. „Mo–Do“, „Fr“ oder „Sa & So“.'
+              - name: zeiten
+                label: Uhrzeit
+                widget: string
+                required: false
+                hint: 'z. B. „07:20–18:00“ (ohne „Uhr“ – das wird bei Bedarf ergänzt). Bei geschlossenen Tagen „geschlossen“. Leer gelassen gilt die Zeile als geschlossen.'
+              - name: geschlossen
+                label: An diesen Tagen geschlossen
+                widget: boolean
+                default: false
+                hint: 'Einschalten für Tage ohne Sprechzeiten (z. B. das Wochenende). Diese Zeile erscheint dann nur in den ausführlichen Listen, nicht im Menü und in der Fußzeile.'
+          - name: termin_hinweis
+            label: Hinweis unter den Öffnungszeiten
+            widget: string
+            required: false
+            hint: 'z. B. „Termine nach Vereinbarung“. Erscheint im Menü und in der Fußzeile. Dieselbe Aussage steht auch auf der Startseite unter „Kontakt & Anfahrt“ (Einleitungstext und Text „Termine“) und bei den häufigen Fragen („Wann ist die Praxis geöffnet?“) – bitte dort mit anpassen.'
+          - name: ohne_oeffnungszeiten
+            label: Ersatztext ohne Öffnungszeiten
+            widget: string
+            hint: 'Wird anstelle der Öffnungszeiten gezeigt, wenn die Liste oben leer ist, z. B. „Termine nach telefonischer Vereinbarung“.'
+          - name: hinweis_banner
+            label: Hinweis-Banner (z. B. Urlaub)
+            widget: object
+            hint: 'Schmale blaue Leiste ganz oben auf allen Seiten – ideal für Urlaubs- oder Feiertagshinweise.'
+            fields:
+              - name: aktiv
+                label: Banner anzeigen
+                widget: boolean
+                default: false
+                hint: 'Einschalten, speichern – nach 1–2 Minuten ist der Hinweis online. Danach wieder ausschalten.'
+              - name: text
+                label: Text des Hinweises
+                widget: string
+                required: false
+                hint: 'Kurz halten, z. B. „Vom 23.12. bis 02.01. ist unsere Praxis geschlossen.“ Platzhalter wie {telefon} werden automatisch ersetzt.'
+          - name: google_bewertung
+            label: Google-Bewertung
+            widget: object
+            hint: 'Kleines Sterne-Abzeichen unter dem Startbild und im Kontaktbereich. Bitte nur echte, aktuelle Werte von Google übernehmen.'
+            fields:
+              - name: anzeigen
+                label: Bewertung anzeigen
+                widget: boolean
+                default: false
+              - name: sterne
+                label: Sterne-Durchschnitt
+                widget: string
+                hint: 'z. B. „4,9“ (mit Komma).'
+              - name: text
+                label: Text neben den Sternen
+                widget: string
+                hint: 'z. B. „bei über 120 Google-Bewertungen“. Das letzte Wort wird automatisch als Link unterstrichen.'
+              - name: link
+                label: Link zu den Bewertungen
+                widget: string
+                type: url
+                hint: 'Google-Maps-Link, unter dem die Bewertungen zu sehen sind.'
+              - name: stand
+                label: Stand
+                widget: string
+                required: false
+                hint: 'Wann Sie die Werte zuletzt geprüft haben, z. B. „Oktober 2026“.'
+
+      # ------------------------------------------------------------------ startseite.yml
+      - name: startseite
+        label: Startseite (Startbild, Über uns, Kontakt)
+        icon: home
+        file: src/_data/startseite.yml
+        preview_path: /
+        fields:
+          - name: seo
+            label: Suchmaschinen & Teilen
+            widget: object
+            collapsed: true
+            comment: 'Startseite: Suchmaschinen-Angaben, Startbild, Kurzfakten, „Über uns“ und Kontakt-Bereich.\nPlatzhalter wie {telefon} oder {strasse} werden automatisch aus den Praxisdaten gefüllt.'
+            hint: 'Wie die Website bei Google und beim Teilen (z. B. per WhatsApp) erscheint.'
+            fields:
+              - name: titel
+                label: Seitentitel
+                widget: string
+                hint: 'Erscheint im Browser-Tab und als Überschrift bei Google. Ideal: höchstens 60 Zeichen.'
+              - name: beschreibung
+                label: Beschreibung für Google
+                widget: text
+                hint: 'Ein bis zwei Sätze, ideal 120–160 Zeichen. Platzhalter wie {telefon} und {strasse} sind möglich.'
+              - name: teilen_titel
+                label: Titel beim Teilen
+                widget: string
+                required: false
+                hint: 'Leer lassen = Seitentitel.'
+              - name: teilen_beschreibung
+                label: Beschreibung beim Teilen
+                widget: text
+                required: false
+                hint: 'Leer lassen = Beschreibung für Google.'
+              - name: teilen_bild
+                label: Vorschaubild beim Teilen
+                widget: image
+                required: false
+                choose_url: false
+                hint: 'Foto im Querformat. Wird automatisch auf 1600 Pixel Breite gebracht.'
+              - name: teilen_bild_alt
+                label: Bildbeschreibung des Vorschaubilds
+                widget: string
+                required: false
+          - name: hero
+            label: Startbild & Begrüßung (ganz oben)
+            widget: object
+            fields:
+              - name: eyebrow
+                label: Kleine Überschrift (Computer & Tablet)
+                widget: string
+                hint: 'Steht in kleinen Großbuchstaben über der Hauptüberschrift.'
+              - name: eyebrow_mobil
+                label: Kleine Überschrift (Handy)
+                widget: string
+                required: false
+                hint: 'Kürzere Variante für schmale Bildschirme. Leer lassen = wie oben.'
+              - name: titel
+                label: Hauptüberschrift
+                widget: string
+              - name: titel_betont
+                label: Betonter Schluss der Überschrift
+                widget: string
+                required: false
+                hint: 'Erscheint kursiv in Blau direkt hinter der Hauptüberschrift, z. B. „Ihrer Stärke.“'
+              - name: text
+                label: Einleitungstext
+                widget: text
+                required: false
+                hint: 'Platzhalter wie {telefon} werden automatisch ersetzt.'
+              - name: button
+                label: Text des Anruf-Knopfs
+                widget: string
+                hint: 'Der Knopf wählt die Telefonnummer aus den Praxisdaten.'
+              - name: telefon_label
+                label: Beschriftung über der Telefonnummer
+                widget: string
+              - name: bild
+                label: Startbild
+                widget: image
+                required: false
+                choose_url: false
+                hint: 'Großes Foto rechts (Computer) bzw. oben (Handy). Querformat, mindestens 1600 Pixel breit.'
+              - name: bild_alt
+                label: Bildbeschreibung (Alternativtext)
+                widget: string
+                required: false
+                hint: 'Ein Satz, was auf dem Foto zu sehen ist – für blinde Menschen und Suchmaschinen.'
+              - name: bild_beschriftung
+                label: Schild im Foto
+                widget: string
+                required: false
+                hint: 'Kleines Schild unten links im Foto (nicht auf dem Handy). Platzhalter wie {strasse} sind möglich. Leer lassen = kein Schild.'
+              - name: bildausschnitt
+                label: Bildausschnitt (für Fortgeschrittene)
+                widget: string
+                required: false
+                hint: 'Welcher Teil des Fotos beim Zuschneiden sichtbar bleibt: object-[X%_Y%], X = von links, Y = von oben (50%_50% = Mitte). Mit „lg:“ davor gilt ein Wert nur am Computer. Leer lassen = Bildmitte; nach einem Fototausch am besten leeren.'
+                pattern: ['^(?:(?:sm|md|lg|xl|2xl):)?(?:(?:object|origin)-\[\d{1,3}(?:\.\d+)?%_\d{1,3}(?:\.\d+)?%\]|object-(?:center|top|bottom|left|right|left-top|left-bottom|right-top|right-bottom)|scale-\[\d(?:\.\d{1,3})?\]|scale-(?:100|105|110|125))(?: +(?:(?:sm|md|lg|xl|2xl):)?(?:(?:object|origin)-\[\d{1,3}(?:\.\d+)?%_\d{1,3}(?:\.\d+)?%\]|object-(?:center|top|bottom|left|right|left-top|left-bottom|right-top|right-bottom)|scale-\[\d(?:\.\d{1,3})?\]|scale-(?:100|105|110|125)))*$', 'Bitte nur Angaben wie object-[50%_50%] oder lg:object-[60%_40%] verwenden, durch Leerzeichen getrennt.']
+          - name: fakten
+            label: Kurzfakten unter dem Startbild
+            label_singular: Kurzfakt
+            widget: list
+            required: false
+            collapsed: true
+            summary: '{{titel}} – {{text}}'
+            hint: 'Am schönsten mit genau 4 Einträgen (2 × 2 auf dem Handy, 4 nebeneinander am Computer).'
+            fields:
+              - name: icon
+                label: Symbol
+                widget: select
+                default: check
+                options:
+                  - { label: Familie, value: family }
+                  - { label: Ortsmarke, value: pin }
+                  - { label: Ebenen (Vielfalt), value: layers }
+                  - { label: Hantel (Training), value: dumbbell }
+                  - { label: Haken, value: check }
+                  - { label: Telefon, value: phone }
+                  - { label: Uhr, value: clock }
+                  - { label: Brief, value: mail }
+                  - { label: Stern, value: star }
+              - name: titel
+                label: Titel
+                widget: string
+              - name: text
+                label: Zusatzzeile
+                widget: string
+                required: false
+                hint: 'Kurz halten. Platzhalter wie {strasse} sind möglich.'
+          - name: willkommen
+            label: Über uns
+            widget: object
+            fields:
+              - name: eyebrow
+                label: Kleine Überschrift
+                widget: string
+              - name: titel
+                label: Überschrift
+                widget: string
+              - name: zitat
+                label: Zitat
+                widget: string
+                required: false
+                hint: 'Erscheint groß und kursiv unter der Überschrift. Anführungszeichen bitte selbst setzen („…“).'
+              - name: text
+                label: Text
+                widget: markdown
+                required: false
+                buttons: [bold, italic]
+                hint: 'Absätze mit einer Leerzeile trennen. Platzhalter wie {telefon} werden automatisch ersetzt.'
+              - name: unterschrift
+                label: Unterschrift
+                widget: string
+                required: false
+                hint: 'z. B. „Ihr Team der Physiotherapie Kemper“.'
+              - name: bild
+                label: Großes Foto
+                widget: image
+                required: false
+                choose_url: false
+                hint: 'Wird am Computer hochkant (4:5), auf dem Handy quer (4:3) zugeschnitten.'
+              - name: bild_alt
+                label: Bildbeschreibung großes Foto
+                widget: string
+                required: false
+              - name: bildausschnitt
+                label: Bildausschnitt großes Foto (für Fortgeschrittene)
+                widget: string
+                required: false
+                hint: 'Welcher Teil des Fotos beim Zuschneiden sichtbar bleibt: object-[X%_Y%], X = von links, Y = von oben (50%_50% = Mitte). Mit „lg:“ davor gilt ein Wert nur am Computer. Leer lassen = Bildmitte; nach einem Fototausch am besten leeren.'
+                pattern: ['^(?:(?:sm|md|lg|xl|2xl):)?(?:(?:object|origin)-\[\d{1,3}(?:\.\d+)?%_\d{1,3}(?:\.\d+)?%\]|object-(?:center|top|bottom|left|right|left-top|left-bottom|right-top|right-bottom)|scale-\[\d(?:\.\d{1,3})?\]|scale-(?:100|105|110|125))(?: +(?:(?:sm|md|lg|xl|2xl):)?(?:(?:object|origin)-\[\d{1,3}(?:\.\d+)?%_\d{1,3}(?:\.\d+)?%\]|object-(?:center|top|bottom|left|right|left-top|left-bottom|right-top|right-bottom)|scale-\[\d(?:\.\d{1,3})?\]|scale-(?:100|105|110|125)))*$', 'Bitte nur Angaben wie object-[50%_50%] oder lg:object-[60%_40%] verwenden, durch Leerzeichen getrennt.']
+              - name: bild_klein
+                label: Kleines Detailfoto
+                widget: image
+                required: false
+                choose_url: false
+                hint: 'Quadratischer Ausschnitt, der unten rechts über dem großen Foto liegt. Am besten ein quadratisches Foto verwenden.'
+              - name: bild_klein_alt
+                label: Bildbeschreibung Detailfoto
+                widget: string
+                required: false
+              - name: bildunterschrift
+                label: Bildunterschrift
+                widget: string
+                required: false
+          - name: kontakt
+            label: Kontakt & Anfahrt
+            widget: object
+            hint: 'Adresse, Telefon, Fax, E-Mail und Öffnungszeiten kommen automatisch aus den Praxisdaten.'
+            fields:
+              - name: eyebrow
+                label: Kleine Überschrift
+                widget: string
+              - name: titel
+                label: Überschrift
+                widget: string
+              - name: text
+                label: Einleitungstext
+                widget: text
+                required: false
+                hint: 'Platzhalter wie {strasse_lang} oder {lage} werden automatisch ersetzt.'
+              - name: button_anrufen
+                label: Text des Anruf-Knopfs
+                widget: string
+              - name: button_route
+                label: Text des Route-Knopfs
+                widget: string
+                hint: 'z. B. „Route planen“. Derselbe Text erscheint auch als Link, wo in einem Text der Platzhalter {route} steht (z. B. bei den häufigen Fragen).'
+              - name: route_hinweis
+                label: Hinweis unter den Knöpfen
+                widget: string
+                required: false
+              - name: termine_titel
+                label: Überschrift „Termine“
+                widget: string
+              - name: termine_text
+                label: Text „Termine“
+                widget: string
+                hint: 'z. B. „Nach Vereinbarung“. Ändern sich Ihre Terminregeln, passen Sie auch den „Einleitungstext“ oben, in den Praxisdaten den „Hinweis unter den Öffnungszeiten“ und bei den häufigen Fragen „Wann ist die Praxis geöffnet?“ an.'
+              - name: termine_zusatz
+                label: Zusatz „Termine“
+                widget: string
+                required: false
+              - name: bild
+                label: Foto
+                widget: image
+                required: false
+                choose_url: false
+                hint: 'Am besten die Außenansicht, damit man die Praxis wiedererkennt.'
+              - name: bild_alt
+                label: Bildbeschreibung
+                widget: string
+                required: false
+              - name: bildausschnitt
+                label: Bildausschnitt (für Fortgeschrittene)
+                widget: string
+                required: false
+                hint: 'Welcher Teil des Fotos beim Zuschneiden sichtbar bleibt: object-[X%_Y%], X = von links, Y = von oben (50%_50% = Mitte). Mit „lg:“ davor gilt ein Wert nur am Computer. Leer lassen = Bildmitte; nach einem Fototausch am besten leeren.'
+                pattern: ['^(?:(?:sm|md|lg|xl|2xl):)?(?:(?:object|origin)-\[\d{1,3}(?:\.\d+)?%_\d{1,3}(?:\.\d+)?%\]|object-(?:center|top|bottom|left|right|left-top|left-bottom|right-top|right-bottom)|scale-\[\d(?:\.\d{1,3})?\]|scale-(?:100|105|110|125))(?: +(?:(?:sm|md|lg|xl|2xl):)?(?:(?:object|origin)-\[\d{1,3}(?:\.\d+)?%_\d{1,3}(?:\.\d+)?%\]|object-(?:center|top|bottom|left|right|left-top|left-bottom|right-top|right-bottom)|scale-\[\d(?:\.\d{1,3})?\]|scale-(?:100|105|110|125)))*$', 'Bitte nur Angaben wie object-[50%_50%] oder lg:object-[60%_40%] verwenden, durch Leerzeichen getrennt.']
+              - name: bild_hinweis_titel
+                label: Hinweis im Foto – fetter Anfang
+                widget: string
+                required: false
+                hint: 'z. B. „So finden Sie uns:“'
+              - name: bild_hinweis
+                label: Hinweis im Foto – Text
+                widget: string
+                required: false
+                hint: 'Weißes Kärtchen unten im Foto. Leer lassen = kein Kärtchen.'
+
+      # ------------------------------------------------------------------ leistungen.yml
+      - name: leistungen
+        label: Leistungen
+        icon: medical_services
+        file: src/_data/leistungen.yml
+        preview_path: /#leistungen
+        fields:
+          - name: eyebrow
+            label: Kleine Überschrift
+            widget: string
+            comment: 'Leistungen: Einleitung, Leistungsbereiche mit ihren einzelnen Leistungen und der Beratungs-Hinweis.\nEin senkrechter Strich | im Namen eines Bereichs markiert, wo ein langes Wort in der Überschrift getrennt werden darf (z. B. „Lymph|drainage“). Auf der Website ist der Strich nicht zu sehen.'
+          - name: titel
+            label: Überschrift
+            widget: string
+          - name: intro
+            label: Einleitungstext
+            widget: text
+            required: false
+          - name: gruppen
+            label: Leistungsbereiche
+            label_singular: Leistungsbereich
+            widget: list
+            required: false
+            collapsed: true
+            summary: '{{titel}}'
+            thumbnail: bild
+            hint: 'Am Computer stehen bis zu 4 Bereiche nebeneinander in der Übersicht. Liste leeren = Bereich „Leistungen“ wird ausgeblendet.'
+            fields:
+              - name: titel
+                label: Name des Bereichs
+                widget: string
+                hint: 'Aus dem Namen wird auch die Sprungmarke gebildet (#bereich-…). Ein senkrechter Strich | markiert, wo ein langes Wort in der großen Überschrift getrennt werden darf, z. B. „Massage & Lymph|drainage“. Auf der Website ist der Strich unsichtbar; das Wort wird nur bei Platzmangel mit Bindestrich getrennt.'
+              - name: kurzuebersicht
+                label: Stichworte für die Übersicht (Computer)
+                widget: string
+                required: false
+                hint: 'Kurze Stichworte, getrennt mit „ · “, z. B. „KG · KG an Geräten · Atemtherapie“. Leer lassen = alle Leistungen werden automatisch aufgezählt. Bitte anpassen, wenn Sie Leistungen umbenennen, hinzufügen oder entfernen.'
+              - name: uebersicht
+                label: Aufzählung der Leistungen (Handy)
+                widget: string
+                required: false
+                hint: 'Kommagetrennte Aufzählung unter dem Bereichsnamen auf dem Handy. Leer lassen = automatisch aus den Leistungen. Bitte anpassen, wenn sich die Leistungen ändern.'
+              - name: text
+                label: Beschreibung des Bereichs
+                widget: text
+                required: false
+                hint: 'Platzhalter wie {telefon} werden automatisch ersetzt.'
+              - name: bild
+                label: Foto
+                widget: image
+                required: false
+                choose_url: false
+                hint: 'Am Computer breit (16:10), auf dem Handy als kleines Quadrat.'
+              - name: bild_alt
+                label: Bildbeschreibung
+                widget: string
+                required: false
+              - name: bildausschnitt
+                label: Bildausschnitt (für Fortgeschrittene)
+                widget: string
+                required: false
+                hint: 'Welcher Teil des Fotos beim Zuschneiden sichtbar bleibt: object-[X%_Y%], X = von links, Y = von oben (50%_50% = Mitte). Mit „lg:“ davor gilt ein Wert nur am Computer. Leer lassen = Bildmitte; nach einem Fototausch am besten leeren.'
+                pattern: ['^(?:(?:sm|md|lg|xl|2xl):)?(?:(?:object|origin)-\[\d{1,3}(?:\.\d+)?%_\d{1,3}(?:\.\d+)?%\]|object-(?:center|top|bottom|left|right|left-top|left-bottom|right-top|right-bottom)|scale-\[\d(?:\.\d{1,3})?\]|scale-(?:100|105|110|125))(?: +(?:(?:sm|md|lg|xl|2xl):)?(?:(?:object|origin)-\[\d{1,3}(?:\.\d+)?%_\d{1,3}(?:\.\d+)?%\]|object-(?:center|top|bottom|left|right|left-top|left-bottom|right-top|right-bottom)|scale-\[\d(?:\.\d{1,3})?\]|scale-(?:100|105|110|125)))*$', 'Bitte nur Angaben wie object-[50%_50%] oder lg:object-[60%_40%] verwenden, durch Leerzeichen getrennt.']
+              - name: leistungen
+                label: Leistungen in diesem Bereich
+                label_singular: Leistung
+                widget: list
+                required: false
+                collapsed: true
+                summary: '{{name}}'
+                fields:
+                  - name: name
+                    label: Name der Leistung
+                    widget: string
+                  - name: kuerzel
+                    label: Abkürzung
+                    widget: string
+                    required: false
+                    hint: 'z. B. „KG“ – erscheint klein neben dem Namen.'
+                  - name: kuerzel_erklaerung
+                    label: Bedeutung der Abkürzung
+                    widget: string
+                    required: false
+                    hint: 'Nur nötig, wenn die Abkürzung nicht einfach für den Namen steht, z. B. „ZNS“ = „Zentrales Nervensystem“.'
+                  - name: zusatz
+                    label: Zusatz neben dem Namen
+                    widget: string
+                    required: false
+                    hint: 'z. B. „Kiefergelenk“.'
+                  - name: beschreibung
+                    label: Erklärung
+                    widget: text
+                    required: false
+                    hint: 'Wird beim Antippen aufgeklappt. Leer lassen = Leistung wird ohne Erklärung aufgeführt.'
+          - name: beratung
+            label: Beratungs-Kasten unter den Leistungen
+            widget: object
+            fields:
+              - name: text
+                label: Text
+                widget: string
+                required: false
+                hint: 'Blauer Kasten mit der Telefonnummer daneben. Leer lassen = Kasten wird ausgeblendet.'
+
+      # ------------------------------------------------------------------ team.yml
+      - name: team
+        label: Team
+        icon: groups
+        file: src/_data/team.yml
+        preview_path: /#team
+        fields:
+          - name: anzeigen
+            label: Team-Bereich anzeigen
+            widget: boolean
+            default: true
+            comment: 'Team: Bereich „Ihr Team“ auf der Startseite.\nNamen und Fotos nur mit Einverständnis der jeweiligen Person veröffentlichen.'
+            hint: 'Ausschalten blendet den Bereich und die Links „Team“ aus. Die Stellenanzeige bleibt sichtbar, solange sie eingeschaltet ist.'
+          - name: eyebrow
+            label: Kleine Überschrift
+            widget: string
+          - name: titel
+            label: Überschrift
+            widget: string
+          - name: text
+            label: Einleitungstext
+            widget: text
+            required: false
+          - name: zitat
+            label: Leitsatz
+            widget: string
+            required: false
+            hint: 'Erscheint kursiv unter dem Text. Anführungszeichen bitte selbst setzen („…“).'
+          - name: hinweis
+            label: Kleiner Hinweis
+            widget: string
+            required: false
+            hint: 'z. B. „Unser ganzes Team stellen wir Ihnen hier bald ausführlich vor.“ Leer lassen = kein Hinweis.'
+          - name: mitglieder
+            label: Personen
+            label_singular: Person
+            widget: list
+            required: false
+            collapsed: true
+            summary: '{{name}} – {{rolle}}'
+            thumbnail: foto
+            hint: 'Bitte nur mit Einverständnis der jeweiligen Person veröffentlichen. Am Computer stehen 3 Personen nebeneinander.'
+            fields:
+              - name: name
+                label: Name
+                widget: string
+              - name: rolle
+                label: Funktion
+                widget: string
+                required: false
+                hint: 'z. B. „Physiotherapeutin“. Mehrere Angaben mit „ · “ trennen, z. B. „Inhaber · Physiotherapeut“.'
+              - name: foto
+                label: Foto
+                widget: image
+                required: false
+                choose_url: false
+                hint: 'Porträt, möglichst quadratisch – wird rund zugeschnitten. Ohne Foto erscheinen die Initialen.'
+              - name: text
+                label: Kurzvorstellung
+                widget: text
+                required: false
+                hint: 'Ein bis zwei Sätze. Leer lassen = keine Vorstellung.'
+              - name: qualifikationen
+                label: Qualifikationen
+                label_singular: Qualifikation
+                widget: list
+                required: false
+                hint: 'Eine Qualifikation pro Zeile, z. B. „Manuelle Therapie“. Mit Enter kommt eine neue Zeile dazu.'
+              - name: sichtbar
+                label: Auf der Website zeigen
+                widget: boolean
+                default: true
+                hint: 'Ausschalten, um eine Person vorübergehend auszublenden, ohne den Eintrag zu löschen.'
+
+      # ------------------------------------------------------------------ karriere.yml
+      - name: karriere
+        label: Stellenanzeige
+        icon: work
+        file: src/_data/karriere.yml
+        preview_path: /#team
+        fields:
+          - name: anzeigen
+            label: Stellenanzeige anzeigen
+            widget: boolean
+            default: false
+            comment: 'Karriere: kleine Stellenanzeige im Team-Bereich der Startseite.'
+            hint: 'Kleiner Kasten im Team-Bereich. Ausschalten, sobald die Stelle besetzt ist.'
+          - name: label
+            label: Kleine Überschrift
+            widget: string
+            required: false
+          - name: titel
+            label: Überschrift
+            widget: string
+          - name: text
+            label: Text
+            widget: text
+            required: false
+            hint: 'z. B. Stelle, Umfang und ab wann. Platzhalter wie {email} werden automatisch ersetzt.'
+          - name: button
+            label: Text des E-Mail-Knopfs
+            widget: string
+          - name: betreff
+            label: Betreff der E-Mail
+            widget: string
+            required: false
+            hint: 'Wird beim Klick auf den Knopf im E-Mail-Programm vorausgefüllt.'
+          - name: kontakt
+            label: E-Mail-Adresse für Bewerbungen
+            widget: string
+            type: email
+            required: false
+            hint: 'Leer lassen = E-Mail-Adresse aus den Praxisdaten.'
+
+      # ------------------------------------------------------------------ galerie.yml
+      - name: galerie
+        label: Praxis-Galerie („Die Praxis“)
+        icon: photo_library
+        file: src/_data/galerie.yml
+        preview_path: /#praxis
+        fields:
+          - name: eyebrow
+            label: Kleine Überschrift
+            widget: string
+            comment: 'Praxis-Galerie („Die Praxis“): Überschrift, Text und Fotos der Räume.'
+          - name: titel
+            label: Überschrift
+            widget: string
+          - name: text
+            label: Text
+            widget: text
+            required: false
+          - name: bilder
+            label: Fotos
+            label_singular: Foto
+            widget: list
+            required: false
+            collapsed: true
+            summary: '{{titel}} · {{beschriftung}}'
+            thumbnail: bild
+            hint: 'Die Fotos werden in einem festen Muster angeordnet: groß + schmal, schmal + groß, eines über die ganze Breite – danach wiederholt es sich. Am besten wirken 5 Fotos. Reihenfolge mit den Pfeilen ändern.'
+            fields:
+              - name: bild
+                label: Foto
+                widget: image
+                choose_url: false
+                hint: 'Querformat, mindestens 1600 Pixel breit.'
+              - name: alt
+                label: Bildbeschreibung (Alternativtext)
+                widget: string
+                hint: 'Ein Satz, was auf dem Foto zu sehen ist – für blinde Menschen und Suchmaschinen.'
+              - name: titel
+                label: Titel
+                widget: string
+                required: false
+                hint: 'Fett unter dem Foto, z. B. „Behandlungsraum“.'
+              - name: beschriftung
+                label: Beschriftung
+                widget: string
+                required: false
+                hint: 'Kurzer Text hinter dem Titel, z. B. „ruhig und hell“.'
+              - name: bildausschnitt
+                label: Bildausschnitt (für Fortgeschrittene)
+                widget: string
+                required: false
+                hint: 'Welcher Teil des Fotos beim Zuschneiden sichtbar bleibt: object-[X%_Y%], X = von links, Y = von oben (50%_50% = Mitte). Mit „lg:“ davor gilt ein Wert nur am Computer. Leer lassen = Bildmitte; nach einem Fototausch am besten leeren.'
+                pattern: ['^(?:(?:sm|md|lg|xl|2xl):)?(?:(?:object|origin)-\[\d{1,3}(?:\.\d+)?%_\d{1,3}(?:\.\d+)?%\]|object-(?:center|top|bottom|left|right|left-top|left-bottom|right-top|right-bottom)|scale-\[\d(?:\.\d{1,3})?\]|scale-(?:100|105|110|125))(?: +(?:(?:sm|md|lg|xl|2xl):)?(?:(?:object|origin)-\[\d{1,3}(?:\.\d+)?%_\d{1,3}(?:\.\d+)?%\]|object-(?:center|top|bottom|left|right|left-top|left-bottom|right-top|right-bottom)|scale-\[\d(?:\.\d{1,3})?\]|scale-(?:100|105|110|125)))*$', 'Bitte nur Angaben wie object-[50%_50%] oder lg:object-[60%_40%] verwenden, durch Leerzeichen getrennt.']
+
+      # ------------------------------------------------------------------ ablauf.yml
+      - name: ablauf
+        label: Ablauf der Behandlung
+        icon: format_list_numbered
+        file: src/_data/ablauf.yml
+        preview_path: /#ablauf
+        fields:
+          - name: eyebrow
+            label: Kleine Überschrift
+            widget: string
+            comment: 'Ablauf: „So läuft Ihre Behandlung ab“ – Schritte und der Kasten „Bitte mitbringen“.\n{telefon} wird automatisch zur anklickbaren Telefonnummer aus den Praxisdaten.'
+          - name: titel
+            label: Überschrift
+            widget: string
+          - name: intro
+            label: Einleitungstext
+            widget: text
+            required: false
+          - name: schritte
+            label: Schritte
+            label_singular: Schritt
+            widget: list
+            required: false
+            collapsed: true
+            summary: '{{titel}}'
+            hint: 'Die Schritte werden automatisch nummeriert. Am Computer stehen bis zu 4 Schritte nebeneinander – mehr als 4 lieber vermeiden.'
+            fields:
+              - name: titel
+                label: Titel
+                widget: string
+              - name: text
+                label: Text
+                widget: text
+                required: false
+                hint: '{telefon} wird zur anklickbaren Telefonnummer.'
+          - name: mitbringen
+            label: Kasten „Bitte mitbringen“
+            widget: object
+            fields:
+              - name: label
+                label: Kleine Überschrift
+                widget: string
+                required: false
+              - name: titel
+                label: Überschrift
+                widget: string
+                required: false
+              - name: text
+                label: Text
+                widget: text
+                required: false
+              - name: punkte
+                label: Liste „Bitte mitbringen“
+                label_singular: Punkt
+                widget: list
+                required: false
+                hint: 'Ein Punkt pro Zeile. Mit Enter kommt eine neue Zeile dazu.'
+              - name: button
+                label: Text des Anruf-Knopfs
+                widget: string
+                required: false
+                hint: 'Leer lassen = kein Knopf.'
+
+      # ------------------------------------------------------------------ faq.yml
+      - name: faq
+        label: Häufige Fragen
+        icon: help
+        file: src/_data/faq.yml
+        preview_path: /#fragen
+        fields:
+          - name: eyebrow
+            label: Kleine Überschrift
+            widget: string
+            comment: 'Häufige Fragen. Antworten können Markdown enthalten (z. B. **fett** oder [Linktext](https://…)).\nPlatzhalter: {telefon} {email} {fax} {strasse} {plz} {ort} {lage} {route} werden aus den Praxisdaten gefüllt.'
+          - name: titel
+            label: Überschrift
+            widget: string
+          - name: text
+            label: Text unter der Überschrift
+            widget: text
+            required: false
+            hint: 'Darunter steht automatisch die Telefonnummer.'
+          - name: fragen
+            label: Fragen & Antworten
+            label_singular: Frage
+            widget: list
+            required: false
+            collapsed: true
+            summary: '{{frage}}'
+            fields:
+              - name: frage
+                label: Frage
+                widget: string
+              - name: oeffnungszeiten_anzeigen
+                label: Öffnungszeiten über der Antwort zeigen
+                widget: boolean
+                default: false
+                hint: 'Zeigt die Öffnungszeiten aus den Praxisdaten als kleine Tabelle über der Antwort.'
+              - name: antwort
+                label: Antwort
+                widget: markdown
+                required: false
+                hint: 'Platzhalter: {telefon}, {email}, {fax}, {strasse}, {plz}, {ort}, {lage}, {route} (= Link zu Google Maps, mit dem Text des Route-Knopfs von der Startseite). Telefon, E-Mail und Route werden automatisch anklickbar.'
+
+      # ------------------------------------------------------------------ navigation.yml
+      - name: navigation
+        label: Menü & Fußzeile
+        icon: menu
+        file: src/_data/navigation.yml
+        preview_path: /
+        fields:
+          - name: hauptmenue
+            label: Hauptmenü
+            label_singular: Menüpunkt
+            widget: list
+            collapsed: true
+            summary: '{{text}} → {{ziel}}'
+            comment: 'Navigation & Fußzeile.\n„ziel“ ist der Bereich der Startseite: willkommen, team, leistungen, praxis, ablauf, fragen oder kontakt.'
+            hint: 'Links zu ausgeblendeten Bereichen (z. B. Team) werden automatisch weggelassen. Reihenfolge mit den Pfeilen ändern.'
+            fields:
+              - name: ziel
+                label: Ziel (Bereich der Startseite)
+                widget: select
+                options:
+                  - { label: Über uns, value: willkommen }
+                  - { label: Team, value: team }
+                  - { label: Leistungen, value: leistungen }
+                  - { label: Die Praxis (Galerie), value: praxis }
+                  - { label: Ablauf, value: ablauf }
+                  - { label: Häufige Fragen, value: fragen }
+                  - { label: Kontakt & Anfahrt, value: kontakt }
+              - name: text
+                label: Text im Menü (Computer)
+                widget: string
+              - name: text_menue
+                label: Text im Handy-Menü
+                widget: string
+                required: false
+                hint: 'Darf etwas länger sein, z. B. „Kontakt & Anfahrt“. Leer lassen = wie oben.'
+          - name: fusszeile
+            label: Fußzeile
+            widget: object
+            fields:
+              - name: slogan
+                label: Leitsatz
+                widget: string
+                required: false
+                hint: 'Kursiv unter dem Logo.'
+              - name: links_titel
+                label: Überschrift der Linkspalte
+                widget: string
+              - name: links
+                label: Links
+                label_singular: Link
+                widget: list
+                required: false
+                summary: '{{text}} → {{ziel}}'
+                fields:
+                  - name: ziel
+                    label: Ziel (Bereich der Startseite)
+                    widget: select
+                    options:
+                      - { label: Über uns, value: willkommen }
+                      - { label: Team, value: team }
+                      - { label: Leistungen, value: leistungen }
+                      - { label: Die Praxis (Galerie), value: praxis }
+                      - { label: Ablauf, value: ablauf }
+                      - { label: Häufige Fragen, value: fragen }
+                      - { label: Kontakt & Anfahrt, value: kontakt }
+                  - name: text
+                    label: Text
+                    widget: string
+              - name: hinweis
+                label: Kleine Zeile ganz unten
+                widget: string
+                required: false
+                hint: 'Zurzeit steht hier der Vorschau-Hinweis „Designentwurf · Vorschau der neuen Website“. Vor dem Livegang leeren und speichern. Leer lassen = keine Zeile.'
+
+      # ------------------------------------------------------------------ rechtliches.yml
+      - name: rechtliches
+        label: Impressum & Datenschutz
+        icon: gavel
+        file: src/_data/rechtliches.yml
+        preview_path: /impressum.html
+        fields:
+          - name: impressum
+            label: Impressum
+            widget: object
+            comment: 'Impressum & Datenschutz. Anschrift, Telefon, Fax und E-Mail kommen automatisch aus den Praxisdaten.\nTextfelder können Markdown enthalten (## Zwischenüberschrift, **fett**, - Aufzählung, [Linktext](https://…)).'
+            hint: 'Anschrift, Telefon, Fax und E-Mail werden automatisch aus den Praxisdaten eingesetzt.'
+            fields:
+              - name: seo_titel
+                label: Seitentitel (Browser-Tab & Google)
+                widget: string
+              - name: seo_beschreibung
+                label: Beschreibung für Google
+                widget: text
+                hint: 'Platzhalter wie {strasse} sind möglich.'
+              - name: eyebrow
+                label: Kleine Überschrift
+                widget: string
+              - name: titel
+                label: Überschrift
+                widget: string
+              - name: intro
+                label: Einleitungssatz
+                widget: string
+                required: false
+              - name: herausgeber
+                label: Herausgeber
+                widget: text
+                required: false
+                hint: 'Eine Angabe pro Zeile, z. B. Name der GbR und verantwortliche Person.'
+              - name: weitere_angaben
+                label: Weitere Angaben (Tabellenzeilen)
+                label_singular: Angabe
+                widget: list
+                required: false
+                collapsed: true
+                summary: '{{bezeichnung}}'
+                hint: 'z. B. „Vertretungsberechtigte Gesellschafter“, „Berufsbezeichnung“, „Zuständige Aufsichtsbehörde“, „USt-IdNr.“'
+                fields:
+                  - name: bezeichnung
+                    label: Bezeichnung (linke Spalte)
+                    widget: string
+                  - name: inhalt
+                    label: Inhalt (rechte Spalte)
+                    widget: markdown
+                    buttons: [bold, italic, link, bulleted-list]
+              - name: text
+                label: Weiterer Text unter der Tabelle
+                widget: markdown
+                required: false
+                buttons: [bold, italic, link, heading-two, heading-three, bulleted-list, numbered-list]
+                hint: 'Optional, z. B. Haftungshinweise. Platzhalter wie {email} sind möglich.'
+              - name: hinweis
+                label: Hinweiskasten
+                widget: object
+                collapsed: true
+                summary: '{{titel}}'
+                fields:
+                  - name: anzeigen
+                    label: Hinweiskasten anzeigen
+                    widget: boolean
+                    default: false
+                  - name: titel
+                    label: Überschrift
+                    widget: string
+                    required: false
+                  - name: text
+                    label: Text
+                    widget: text
+                    required: false
+          - name: datenschutz
+            label: Datenschutz
+            widget: object
+            hint: 'Verantwortliche Stelle (Name, Anschrift, Telefon, E-Mail) wird automatisch aus den Praxisdaten eingesetzt.'
+            fields:
+              - name: seo_titel
+                label: Seitentitel (Browser-Tab & Google)
+                widget: string
+              - name: seo_beschreibung
+                label: Beschreibung für Google
+                widget: text
+              - name: eyebrow
+                label: Kleine Überschrift
+                widget: string
+              - name: titel
+                label: Überschrift
+                widget: string
+              - name: intro
+                label: Einleitungssatz
+                widget: string
+                required: false
+              - name: kurzfassung
+                label: Kurzfassung (grauer Kasten)
+                widget: object
+                fields:
+                  - name: titel
+                    label: Überschrift
+                    widget: string
+                    required: false
+                  - name: punkte
+                    label: Punkte
+                    label_singular: Punkt
+                    widget: list
+                    required: false
+                    hint: 'Ein Punkt pro Zeile, jeweils mit Haken davor.'
+              - name: verantwortlich_titel
+                label: Überschrift „Verantwortlich“
+                widget: string
+                hint: 'Darunter stehen automatisch Rechtsname, Anschrift, Telefon und E-Mail aus den Praxisdaten.'
+              - name: abschnitte
+                label: Abschnitte
+                label_singular: Abschnitt
+                widget: list
+                required: false
+                collapsed: true
+                summary: '{{titel}}'
+                fields:
+                  - name: titel
+                    label: Überschrift
+                    widget: string
+                  - name: text
+                    label: Text
+                    widget: markdown
+                    hint: 'Platzhalter wie {email} oder {telefon} werden automatisch ersetzt.'
+              - name: text
+                label: Weiterer Text unter den Abschnitten
+                widget: markdown
+                required: false
+                buttons: [bold, italic, link, heading-two, heading-three, bulleted-list, numbered-list]
+                hint: 'Optional, z. B. die vollständige Datenschutzerklärung mit Zwischenüberschriften.'
+              - name: hinweis
+                label: Hinweiskasten
+                widget: object
+                collapsed: true
+                summary: '{{titel}}'
+                fields:
+                  - name: anzeigen
+                    label: Hinweiskasten anzeigen
+                    widget: boolean
+                    default: false
+                  - name: titel
+                    label: Überschrift
+                    widget: string
+                    required: false
+                  - name: text
+                    label: Text
+                    widget: text
+                    required: false

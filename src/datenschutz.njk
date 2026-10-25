@@ -1,0 +1,55 @@
+---
+layout: layouts/base.njk
+permalink: datenschutz.html
+seite: datenschutz
+---
+{%- set r = rechtliches.datenschutz -%}
+{%- set kurz = r.kurzfassung %}
+  <main id="main" class="py-14 sm:py-20 lg:py-24">
+    <div class="mx-auto grid max-w-[84rem] gap-10 px-5 sm:px-8 lg:grid-cols-12 lg:gap-12 lg:px-12">
+      <div class="lg:col-span-4">
+        <div class="lg:sticky lg:top-28">
+          <p class="eyebrow">{{ r.eyebrow }}</p>
+          <h1 class="font-display mt-5 text-[2.5rem] leading-[1.05] font-[420] tracking-[-0.02em] sm:mt-6 sm:text-[3.2rem]">{{ r.titel }}</h1>
+          {%- if r.intro %}
+          <p class="mt-5 max-w-[24rem]">{{ r.intro }}</p>
+          {%- endif %}
+        </div>
+      </div>
+      <div class="lg:col-span-7 lg:col-start-6">
+          {%- if kurz and (kurz.titel or (kurz.punkte and kurz.punkte.length)) %}
+          <div class="rounded-[1.5rem] bg-stone p-6 sm:p-8">
+            <p class="font-display text-[1.4rem] leading-snug font-[420] text-ink">{{ kurz.titel }}</p>
+            {%- if kurz.punkte and kurz.punkte.length %}
+            <ul class="mt-5 space-y-3.5">
+              {%- for punkt in kurz.punkte %}
+              <li class="flex gap-4"><span class="grid size-8 shrink-0 place-items-center rounded-full bg-paper text-brand"><svg class="size-[1.1rem]" aria-hidden="true"><use href="#i-check"/></svg></span><span class="pt-0.5">{{ punkt }}</span></li>
+              {%- endfor %}
+            </ul>
+            {%- endif %}
+          </div>
+          {%- endif %}
+          <div class="mt-10 border-t border-ink/80">
+          <section class="border-b border-line py-7">
+            <h2 class="font-display text-[1.45rem] leading-snug font-[450] sm:text-[1.6rem]">{{ r.verantwortlich_titel }}</h2>
+            <p class="mt-3">{{ praxis.rechtsname }}<br>{{ praxis.strasse }}, {{ praxis.plz }} {{ praxis.ort }}<br>Telefon <a href="tel:{{ praxis.telefon_link }}" class="text-link">{{ praxis.telefon }}</a><br>E-Mail <a href="mailto:{{ praxis.email }}" class="text-link break-words">{{ praxis.email }}</a></p>
+          </section>
+          {%- for abschnitt in r.abschnitte or [] %}
+          <section class="border-b border-line py-7">
+            <h2 class="font-display text-[1.45rem] leading-snug font-[450] sm:text-[1.6rem]">{{ abschnitt.titel }}</h2>
+            <div class="richtext mt-3">{{ abschnitt.text | markdown(praxis) | safe }}</div>
+          </section>
+          {%- endfor %}
+          </div>
+          {%- if r.text %}
+          <div class="richtext mt-10">{{ r.text | markdown(praxis) | safe }}</div>
+          {%- endif %}
+          {%- if r.hinweis and r.hinweis.anzeigen and r.hinweis.text %}
+          <aside class="mt-10 rounded-[1.25rem] border border-dashed border-oak/70 bg-stone/70 p-5 sm:p-6" aria-label="{{ r.hinweis.titel }}">
+            <p class="label !text-[#7d5528]">{{ r.hinweis.titel }}</p>
+            <p class="mt-2 text-[1rem] text-body">{{ r.hinweis.text }}</p>
+          </aside>
+          {%- endif %}
+      </div>
+    </div>
+  </main>

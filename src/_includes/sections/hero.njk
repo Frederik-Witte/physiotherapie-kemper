@@ -1,0 +1,75 @@
+{#- Hero + quick facts (startseite.yml → hero, fakten) -#}
+{%- set hero = startseite.hero -%}
+{%- set gb = praxis.google_bewertung -%}
+{%- set faktKlassen = [
+  "flex flex-col gap-2.5 py-4 pr-3 lg:flex-row lg:items-center lg:gap-4 lg:py-6 lg:pr-6",
+  "flex flex-col gap-2.5 border-l border-line py-4 pl-4 lg:flex-row lg:items-center lg:gap-4 lg:px-6 lg:py-6",
+  "flex flex-col gap-2.5 border-t border-line py-4 pr-3 lg:flex-row lg:items-center lg:gap-4 lg:border-t-0 lg:border-l lg:px-6 lg:py-6",
+  "flex flex-col gap-2.5 border-t border-l border-line py-4 pl-4 lg:flex-row lg:items-center lg:gap-4 lg:border-t-0 lg:py-6 lg:pl-6"
+] %}
+    <!-- ============ Hero ============ -->
+    <section class="relative" aria-labelledby="hero-title">
+      {%- if hero.bild %}
+      <!-- Photo: first thing on phones, bleeding off the right edge on desktop -->
+      <div class="mt-1 ml-5 sm:mt-2 sm:ml-8 lg:absolute lg:inset-y-0 lg:right-0 lg:left-[53%] lg:m-0 xl:left-[48%]">
+        <div class="photo aspect-[4/3] max-h-[33svh] w-full rounded-l-[1.5rem] sm:aspect-[16/9] sm:max-h-[44svh] lg:aspect-auto lg:h-full lg:max-h-none lg:rounded-l-[2.25rem]">
+          <img src="{{ hero.bild }}" sizes="(min-width: 1024px) 1050px, 100vw" loading="eager" fetchpriority="high" decoding="async"{% if hero.bildausschnitt %} class="{{ hero.bildausschnitt }}"{% endif %} alt="{{ hero.bild_alt }}">
+          {%- if hero.bild_beschriftung %}
+          <p class="absolute bottom-3 left-3 hidden sm:inline-flex items-center gap-2 rounded-full bg-paper/95 py-1.5 pr-3.5 pl-2.5 text-[0.875rem] font-medium text-ink shadow-[0_8px_30px_-12px_rgb(8_18_47/0.35)] lg:bottom-8 lg:left-8 lg:gap-2.5 lg:py-2 lg:pr-4 lg:pl-3 lg:text-[0.95rem]">
+            <svg class="size-4 text-brand" aria-hidden="true"><use href="#i-pin"/></svg>
+            {{ hero.bild_beschriftung | klartext(praxis) }}
+          </p>
+          {%- endif %}
+        </div>
+      </div>
+      {%- endif %}
+
+      <div class="mx-auto max-w-[84rem] px-5 sm:px-8 lg:px-12">
+        <div class="lg:grid lg:min-h-[min(44rem,calc(100svh-12.5rem))] lg:grid-cols-12 lg:items-center">
+          <div class="pt-6 sm:pt-12 lg:col-span-6 lg:py-14 xl:col-span-5">
+            {%- if hero.eyebrow %}
+            <p class="eyebrow">{% if hero.eyebrow_mobil %}<span class="sm:hidden">{{ hero.eyebrow_mobil }}</span><span class="max-sm:hidden">{{ hero.eyebrow }}</span>{% else %}<span>{{ hero.eyebrow }}</span>{% endif %}</p>
+            {%- endif %}
+            <h1 id="hero-title" class="font-display mt-4 text-[2.3rem] leading-[1.06] font-[400] tracking-[-0.02em] sm:mt-6 sm:text-[3.5rem] lg:text-[3.8rem] xl:text-[4.4rem] 2xl:text-[4.8rem]">
+              {{ hero.titel }}{% if hero.titel_betont %} <em class="font-[380] text-navy-800 italic">{{ hero.titel_betont }}</em>{% endif %}
+            </h1>
+            {%- if hero.text %}
+            <p class="mt-4 max-w-[33rem] text-[1.0625rem] leading-relaxed sm:mt-6 sm:text-[1.25rem]">
+              {{ hero.text | platzhalter(praxis) | safe }}
+            </p>
+            {%- endif %}
+            <div class="mt-6 flex flex-col gap-x-7 gap-y-1 sm:mt-9 sm:gap-y-3 sm:flex-row sm:flex-wrap sm:items-center">
+              <a href="tel:{{ praxis.telefon_link }}" class="btn btn-primary" data-hero-cta>
+                <svg class="size-5" aria-hidden="true"><use href="#i-phone"/></svg>
+                {{ hero.button }}
+              </a>
+              <a href="tel:{{ praxis.telefon_link }}" class="group inline-flex min-h-11 items-baseline justify-center gap-2.5 text-ink sm:flex-col sm:items-start sm:gap-0.5">
+                <span class="text-[1rem] text-muted sm:text-[0.875rem] sm:font-semibold sm:tracking-[0.12em] sm:uppercase">{{ hero.telefon_label }}</span>
+                <span class="font-display text-[1.3rem] leading-tight font-[450] group-hover:text-brand sm:text-[1.45rem]">{{ praxis.telefon | nbsp }}</span>
+              </a>
+            </div>
+            {%- if gb and gb.anzeigen %}
+            <a href="{{ gb.link }}" target="_blank" rel="noopener" class="group mt-1 flex min-h-11 flex-wrap items-center justify-center gap-x-2.5 gap-y-1 text-[1rem] text-body sm:mt-8 sm:justify-start sm:gap-x-3 sm:border-t sm:border-line sm:pt-6">
+              <span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg><svg class="max-sm:hidden"><use href="#i-star"/></svg><svg class="max-sm:hidden"><use href="#i-star"/></svg><svg class="max-sm:hidden"><use href="#i-star"/></svg><svg class="max-sm:hidden"><use href="#i-star"/></svg></span>
+              <span><strong class="font-display text-[1.15rem] font-[500] text-ink">{{ gb.sterne }}</strong><span class="sr-only"> von 5 Sternen</span> {{ gb.text | ohneLetztesWort }} <span class="whitespace-nowrap underline decoration-line underline-offset-4 group-hover:decoration-brand">{{ gb.text | letztesWort }}</span></span>
+              <span class="sr-only">(öffnet Google Maps in einem neuen Fenster)</span>
+            </a>
+            {%- endif %}
+          </div>
+        </div>
+      </div>
+    </section>
+    {%- if startseite.fakten and startseite.fakten.length %}
+
+    <!-- Quick facts -->
+    <div class="mx-auto max-w-[84rem] px-5 sm:px-8 lg:px-12">
+      <ul class="mt-8 grid grid-cols-2 border-y border-line sm:mt-12 lg:mt-0 lg:grid-cols-4">
+        {%- for fakt in startseite.fakten %}
+        <li class="{{ faktKlassen[loop.index0 % 4] }}">
+          <span class="grid size-10 shrink-0 place-items-center rounded-full bg-stone text-brand lg:size-11"><svg class="size-[1.25rem]" aria-hidden="true"><use href="#i-{{ fakt.icon or 'check' }}"/></svg></span>
+          <span><span class="font-display block text-[1.125rem] leading-snug font-[450] text-ink sm:text-[1.25rem]">{{ fakt.titel }}</span>{% if fakt.text %}<span class="mt-0.5 block text-[1rem] leading-snug text-muted">{{ fakt.text | klartext(praxis) }}</span>{% endif %}</span>
+        </li>
+        {%- endfor %}
+      </ul>
+    </div>
+    {%- endif %}

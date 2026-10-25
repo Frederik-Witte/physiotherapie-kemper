@@ -1,0 +1,49 @@
+# Praxisdaten & Kontakt – werden überall auf der Website verwendet
+# (Kopfzeile, Startbild, Menü, Anruf-Leiste, Kontakt, Fußzeile, Fragen, Impressum, Datenschutz).
+# In anderen Texten können Sie Platzhalter schreiben, die automatisch mit diesen Angaben gefüllt werden:
+# {telefon} {fax} {email} {strasse} {strasse_lang} {plz} {ort} {stadtteil} {lage} {name} {rechtsname} {route}
+# ({strasse_lang} schreibt die Straße aus: „Moosbergstr. 4“ → „Moosbergstraße 4“)
+# ({route} wird ein Link zu Google Maps, mit dem Text des Route-Knopfs von der Startseite)
+
+name: Physiotherapie Kemper
+rechtsname: Dirk Kemper + Söhne GbR
+
+telefon: (0511) 795887
+telefon_link: "+49511795887"
+fax: (0511) 9675598
+email: info@physiotherapie-kemper.de
+
+strasse: Moosbergstr. 4
+plz: "30419"
+ort: Hannover
+stadtteil: Stöcken
+lage: am Stöckener Markt
+routenlink: https://www.google.com/maps/search/?api=1&query=Moosbergstr.+4,+30419+Hannover
+
+facebook: https://www.facebook.com/physiotherapiekemper/
+instagram: ""
+
+oeffnungszeiten:
+  - tage: Mo–Do
+    zeiten: "07:20–18:00"
+  - tage: Fr
+    zeiten: "07:20–16:00"
+  - tage: Sa & So
+    zeiten: geschlossen
+    geschlossen: true
+# Steht im Menü und in der Fußzeile. Dieselbe Aussage auch in startseite.yml (kontakt: text, termine_text)
+# und in faq.yml („Wann ist die Praxis geöffnet?“) anpassen.
+termin_hinweis: Termine nach Vereinbarung
+# Wird anstelle der Öffnungszeiten gezeigt, wenn die Liste oben leer ist
+ohne_oeffnungszeiten: Termine nach telefonischer Vereinbarung
+
+hinweis_banner:
+  aktiv: false
+  text: Vom 23.12. bis 02.01. ist unsere Praxis geschlossen. Ab dem 03.01. sind wir wieder für Sie da.
+
+google_bewertung:
+  anzeigen: true
+  sterne: "4,9"
+  text: bei über 120 Google-Bewertungen
+  link: https://www.google.com/maps/search/?api=1&query=Physiotherapie+Dirk+Kemper+S%C3%B6hne+Moosbergstr.+4+Hannover
+  stand: Oktober 2026

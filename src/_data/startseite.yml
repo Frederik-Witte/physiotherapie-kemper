@@ -1,0 +1,69 @@
+# Startseite: Suchmaschinen-Angaben, Startbild (Hero), Kurzfakten, „Über uns“ und Kontakt-Bereich.
+# Platzhalter wie {telefon} oder {strasse} werden automatisch aus den Praxisdaten gefüllt.
+
+seo:
+  titel: Physiotherapie Kemper – Physiotherapie in Hannover-Stöcken
+  beschreibung: "Physiotherapie Kemper am Stöckener Markt in Hannover: Krankengymnastik, Manuelle Therapie, Massagen, Lymphdrainage, Bobath, CMD und mehr. Familienbetrieb, {strasse}. Termine unter {telefon}."
+  teilen_titel: Physiotherapie Kemper – Hannover-Stöcken
+  teilen_beschreibung: Krankengymnastik, Manuelle Therapie, Massagen und mehr – in hellen, modernen Räumen am Stöckener Markt. Ein Familienbetrieb in Hannover-Stöcken.
+  teilen_bild: /assets/bilder/empfang.jpg
+  teilen_bild_alt: Heller Empfangsbereich der Physiotherapie Kemper mit Holztresen und weißer Orchidee
+
+hero:
+  eyebrow: Familienbetrieb in Hannover-Stöcken
+  eyebrow_mobil: Familienbetrieb in Stöcken
+  titel: Schritt für Schritt zurück zu
+  titel_betont: Ihrer Stärke.
+  text: Krankengymnastik, Manuelle Therapie, Massagen und mehr – in hellen, modernen Räumen am Stöckener Markt. Wir begleiten Sie persönlich.
+  button: Termin vereinbaren
+  telefon_label: Telefon
+  bild: /assets/bilder/empfang.jpg
+  bild_alt: Heller Empfangsbereich der Praxis mit Tresen aus hellem Holz, einem Willkommensschild, einer weißen Orchidee und einem sonnigen Flur
+  bild_beschriftung: Unser Empfang · {strasse}
+  bildausschnitt: object-[70%_50%] lg:object-[80%_50%] xl:object-[72%_50%]
+
+fakten:
+  - icon: family
+    titel: Familiengeführt
+    text: Dirk Kemper + Söhne
+  - icon: pin
+    titel: Am Stöckener Markt
+    text: "{strasse}"
+  - icon: layers
+    titel: Breites Spektrum
+    text: Von KG bis Lymphdrainage
+  - icon: dumbbell
+    titel: Trainingsfläche
+    text: Für KG an Geräten
+
+willkommen:
+  eyebrow: Über uns
+  titel: Ein Familienbetrieb, mitten in Stöcken.
+  zitat: "„Wir sind die Physiotherapie in Hannover-Stöcken – seit vielen Jahren.“"
+  text: |-
+    Hinter der Physiotherapie Kemper steht eine Familie: Dirk Kemper und seine Söhne. In unseren modernen Räumen am Stöckener Markt bieten wir Ihnen ein umfangreiches Leistungsspektrum – von der Krankengymnastik über die Manuelle Therapie bis zur Lymphdrainage.
+
+    Ob Rehabilitation oder Vorbeugung: Wir kümmern uns mit größtmöglicher Sorgfalt um Ihre Beschwerden. Gerne begleiten wir Sie auf Ihrem Weg durch die Physiotherapie – und freuen uns darauf, Sie persönlich kennenzulernen.
+  unterschrift: Ihr Team der Physiotherapie Kemper
+  bild: /assets/bilder/training-licht.jpg
+  bild_alt: Orchideen vor einem großen, hellen Milchglasfenster im Trainingsbereich
+  bildausschnitt: object-[18%_60%] lg:object-[14%_50%]
+  bild_klein: /assets/bilder/empfang-detail.jpg
+  bild_klein_alt: "Detail am Empfang: Holzschild mit der Aufschrift „Willkommen“ neben einer weißen Orchidee"
+  bildunterschrift: Viel Tageslicht – vom Empfang bis zur Trainingsfläche.
+
+kontakt:
+  eyebrow: Kontakt & Anfahrt
+  titel: Wir freuen uns auf Ihren Anruf.
+  text: Termine nach Vereinbarung – am schnellsten telefonisch. Sie finden uns in der {strasse_lang}, direkt {lage}.
+  button_anrufen: Jetzt anrufen
+  button_route: Route planen
+  route_hinweis: „Route planen“ öffnet Google Maps in einem neuen Fenster.
+  termine_titel: Termine
+  termine_text: Nach Vereinbarung
+  termine_zusatz: bitte etwas Vorlauf einplanen
+  bild: /assets/bilder/aussenansicht.jpg
+  bild_alt: "Außenansicht der Praxis: Schaufenster mit der Aufschrift „Krankengymnastik – Dirk Kemper & Söhne“ an einem Klinkerbau"
+  bildausschnitt: object-[74%_40%]
+  bild_hinweis_titel: "So finden Sie uns:"
+  bild_hinweis: Schaufenster mit der Aufschrift „Krankengymnastik – Dirk Kemper & Söhne“.

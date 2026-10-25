@@ -1,0 +1,66 @@
+{#- Ablauf (ablauf.yml) -#}
+{%- set schritte = ablauf.schritte or [] -%}
+{%- set schrittSpalten = { "1": "lg:grid-cols-1", "2": "lg:grid-cols-2", "3": "lg:grid-cols-3" } -%}
+{%- set mb = ablauf.mitbringen -%}
+{%- if schritte.length %}
+
+    <!-- ============ Ablauf ============ -->
+    <section id="ablauf" class="bg-navy-900 py-16 text-paper sm:py-24 lg:py-28" aria-labelledby="ablauf-title">
+      <div class="mx-auto max-w-[84rem] px-5 sm:px-8 lg:px-12">
+        <div class="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-12">
+          <div class="lg:col-span-7">
+            <p class="eyebrow eyebrow-light">{{ ablauf.eyebrow }}</p>
+            <h2 id="ablauf-title" class="font-display mt-5 text-[2.2rem] leading-[1.08] font-[420] tracking-[-0.018em] !text-paper sm:mt-6 sm:text-[2.9rem] xl:text-[3.3rem]">{{ ablauf.titel }}</h2>
+          </div>
+          {%- if ablauf.intro %}
+          <div class="lg:col-span-5">
+            <p class="max-w-[30rem] text-paper/85">{{ ablauf.intro | platzhalter(praxis, "light") | safe }}</p>
+          </div>
+          {%- endif %}
+        </div>
+
+        <ol class="mt-12 lg:mt-16 lg:grid {{ schrittSpalten[schritte.length] or 'lg:grid-cols-4' }} lg:gap-10">
+          {%- for s in schritte %}
+          <li class="step relative grid grid-cols-[3rem_1fr] gap-x-5 {% if not loop.last %}pb-9 {% endif %}lg:block lg:border-t lg:border-white/20 lg:pt-10{% if not loop.last %} lg:pb-0{% endif %}" data-reveal>
+            <span class="font-display relative grid size-12 place-items-center rounded-full border border-white/30 bg-navy-900 text-[1.45rem] leading-none font-[400] text-brand-light lg:block lg:size-auto lg:rounded-none lg:border-0 lg:bg-transparent lg:text-[4.25rem] lg:font-[340]" aria-hidden="true">{{ loop.index }}</span>
+            <div class="pt-2 lg:pt-0">
+              <h3 class="font-display text-[1.45rem] leading-tight font-[450] !text-paper lg:mt-8"><span class="sr-only">Schritt {{ loop.index }}: </span>{{ s.titel }}</h3>
+              {%- if s.text %}
+              <p class="mt-2.5 text-paper/85">{{ s.text | platzhalter(praxis, "light") | safe }}</p>
+              {%- endif %}
+            </div>
+          </li>
+          {%- endfor %}
+        </ol>
+        {%- if mb and (mb.titel or (mb.punkte and mb.punkte.length)) %}
+
+        <div class="mt-12 grid gap-7 rounded-[1.75rem] bg-white/[0.07] p-6 ring-1 ring-white/12 sm:p-9 lg:mt-16 lg:grid-cols-12 lg:items-center lg:gap-12 lg:p-12" data-reveal>
+          <div class="lg:col-span-4">
+            {%- if mb.label %}
+            <p class="label !text-brand-light">{{ mb.label }}</p>
+            {%- endif %}
+            <p class="font-display mt-3 text-[1.7rem] leading-tight font-[420] text-paper lg:text-[2rem]">{{ mb.titel }}</p>
+            {%- if mb.text %}
+            <p class="mt-3 text-paper/85">{{ mb.text | platzhalter(praxis, "light") | safe }}</p>
+            {%- endif %}
+          </div>
+          {%- if mb.punkte and mb.punkte.length %}
+          <ul class="grid gap-4 sm:grid-cols-2 lg:col-span-5 lg:grid-cols-1">
+            {%- for punkt in mb.punkte %}
+            <li class="flex items-center gap-4"><span class="grid size-9 shrink-0 place-items-center rounded-full bg-white/10 text-lime"><svg class="size-5" aria-hidden="true"><use href="#i-check"/></svg></span><span class="text-[1.125rem] text-paper">{{ punkt }}</span></li>
+            {%- endfor %}
+          </ul>
+          {%- endif %}
+          {%- if mb.button %}
+          <div class="lg:col-span-3 lg:text-right">
+            <a href="tel:{{ praxis.telefon_link }}" class="btn btn-light w-full sm:w-auto">
+              <svg class="size-5" aria-hidden="true"><use href="#i-phone"/></svg>
+              {{ mb.button }}
+            </a>
+          </div>
+          {%- endif %}
+        </div>
+        {%- endif %}
+      </div>
+    </section>
+{%- endif %}
