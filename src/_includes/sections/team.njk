@@ -1,26 +1,13 @@
-{#- Team (team.yml) + career box (karriere.yml). Hidden when both are switched off. -#}
+{#- Team on the homepage: the owners (team.yml → startseite, inhaber), a link to the team page and
+    the career box (karriere.yml). Hidden when both team and career box are switched off. -#}
+{%- from "partials/team-bausteine.njk" import avatar, chips -%}
+{%- set t = team.startseite or {} -%}
 {%- set spalten = [
   "sm:py-2 sm:pr-6",
   "sm:border-l sm:px-6 sm:py-2",
   "sm:border-l sm:py-2 sm:pl-6"
 ] -%}
-{%- macro karriereBox(extraKlassen) -%}
-            <aside class="{{ extraKlassen }}grid gap-5 rounded-[1.5rem] bg-stone p-6 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-8 sm:p-8" aria-labelledby="karriere-title">
-              <div>
-                {%- if karriere.label %}
-                <p class="label !text-brand">{{ karriere.label }}</p>
-                {%- endif %}
-                <h3 id="karriere-title" class="font-display mt-2 text-[1.5rem] leading-tight font-[450]">{{ karriere.titel }}</h3>
-                {%- if karriere.text %}
-                <p class="mt-2 max-w-[34rem]">{{ karriere.text | platzhalter(praxis) | safe }}</p>
-                {%- endif %}
-              </div>
-              <a href="mailto:{{ karriere.kontakt or praxis.email }}{% if karriere.betreff %}?subject={{ karriere.betreff | urlencode }}{% endif %}" class="btn btn-ghost !border-ink/25 bg-paper">
-                <svg class="size-5" aria-hidden="true"><use href="#i-mail"/></svg>
-                {{ karriere.button }}
-              </a>
-            </aside>
-{%- endmacro -%}
+{%- set teamLink = abschnitte.teamseite and t.link_text -%}
 {%- if abschnitte.team or abschnitte.karriere %}
 
     <!-- ============ Team ============ -->
@@ -29,29 +16,26 @@
         {%- if abschnitte.team %}
         <div class="grid gap-8 border-t border-line pt-12 sm:pt-16 lg:pt-20 xl:grid-cols-12 xl:gap-12">
           <div class="xl:col-span-4">
-            <p class="eyebrow">{{ team.eyebrow }}</p>
-            <h2 id="team-title" class="font-display mt-5 text-[2rem] leading-[1.1] font-[420] tracking-[-0.015em] sm:text-[2.5rem] lg:text-[2.7rem]">{{ team.titel }}</h2>
-            {%- if team.text %}
-            <p class="mt-5 max-w-[30rem]">{{ team.text | platzhalter(praxis) | safe }}</p>
+            <p class="eyebrow">{{ t.eyebrow }}</p>
+            <h2 id="team-title" class="font-display mt-5 text-[2rem] leading-[1.1] font-[420] tracking-[-0.015em] sm:text-[2.5rem] lg:text-[2.7rem]">{{ t.titel }}</h2>
+            {%- if t.text %}
+            <p class="mt-5 max-w-[30rem]">{{ t.text | platzhalter(praxis) | safe }}</p>
             {%- endif %}
-            {%- if team.zitat %}
-            <p class="font-display mt-4 text-[1.45rem] leading-snug font-[400] text-ink italic">{{ team.zitat }}</p>
+            {%- if t.zitat %}
+            <p class="font-display mt-4 text-[1.45rem] leading-snug font-[400] text-ink italic">{{ t.zitat }}</p>
             {%- endif %}
-            {%- if team.hinweis %}
-            <p class="mt-5 max-w-[30rem] text-[1rem] text-muted">{{ team.hinweis }}</p>
+            {%- if teamLink %}
+            <a href="/team.html" class="link-arrow btn btn-ghost mt-8 hidden xl:inline-flex">
+              {{ t.link_text }}
+              <svg class="size-5 text-brand" aria-hidden="true"><use href="#i-arrow"/></svg>
+            </a>
             {%- endif %}
           </div>
-          <div class="xl:col-span-8">
+          <div class="min-w-0 xl:col-span-8">
             <ul class="grid border-t border-line sm:grid-cols-3 sm:border-t-0">
-              {%- for person in teamMitglieder %}
+              {%- for person in teamInhaber %}
               <li class="flex items-center gap-5 border-b border-line py-5 sm:flex-col sm:items-start sm:gap-6 sm:border-b-0 {{ spalten[loop.index0 % 3] }}{% if loop.index0 >= 3 %} sm:mt-8{% endif %}">
-                {%- if person.foto %}
-                <span class="monogram overflow-hidden">
-                  <img src="{{ person.foto }}" eleventy:widths="180,360" eleventy:pictureattr:class="size-full" sizes="(min-width: 40rem) 88px, 72px" loading="lazy" decoding="async" class="size-full object-cover" alt="">
-                </span>
-                {%- else %}
-                <span class="monogram" aria-hidden="true">{{ person.name | initiale }}<i>{{ person.name | initiale("last") }}</i></span>
-                {%- endif %}
+                {{ avatar(person) }}
                 <div>
                   <h3 class="font-display text-[1.45rem] leading-tight font-[450] sm:text-[1.6rem]">{{ person.name }}</h3>
                   {%- if person.rolle %}
@@ -60,26 +44,28 @@
                   {%- if person.text %}
                   <p class="mt-3 max-w-[22rem] text-[1rem] leading-snug">{{ person.text }}</p>
                   {%- endif %}
-                  {%- if person.qualifikationen and person.qualifikationen.length %}
-                  <ul class="mt-3 space-y-1.5 text-[1rem] leading-snug">
-                    {%- for q in person.qualifikationen %}
-                    <li class="flex gap-2.5"><svg class="mt-[0.2em] size-4 shrink-0 text-brand" aria-hidden="true"><use href="#i-check"/></svg><span>{{ q }}</span></li>
-                    {%- endfor %}
-                  </ul>
-                  {%- endif %}
+                  {{ chips(person.qualifikationen, "mt-3 ") }}
                 </div>
               </li>
               {%- endfor %}
             </ul>
+            {%- if teamLink %}
+            <a href="/team.html" class="link-arrow btn btn-ghost mt-8 w-full text-center max-sm:whitespace-normal sm:mt-10 sm:w-auto xl:hidden">
+              {{ t.link_text }}
+              <svg class="size-5 text-brand" aria-hidden="true"><use href="#i-arrow"/></svg>
+            </a>
+            {%- endif %}
             {%- if abschnitte.karriere %}
+            {%- set karriereKlassen = "mt-8 sm:mt-10 " %}
 
-{{ karriereBox("mt-8 sm:mt-10 ") }}
+{% include "partials/karriere.njk" %}
             {%- endif %}
           </div>
         </div>
         {%- else %}
         <div class="border-t border-line pt-12 sm:pt-16 lg:pt-20">
-{{ karriereBox("") }}
+          {%- set karriereKlassen = "" %}
+{% include "partials/karriere.njk" %}
         </div>
         {%- endif %}
       </div>

@@ -1,4 +1,4 @@
-{#- Mobile menu (native modal dialog), homepage only -#}
+{#- Mobile menu (native modal dialog) on the homepage and the team page -#}
 {%- set offen = praxis.oeffnungszeiten | geoeffnet %}
   <!-- ============ Mobile menu ============ -->
   <dialog id="menu" class="menu-dialog" aria-label="Menü">
@@ -19,7 +19,7 @@
       <nav aria-label="Menü" class="mt-6">
         <ul class="border-t border-line">
           {%- for link in hauptmenue %}
-          <li><a href="#{{ link.ziel }}" class="flex min-h-16 items-center justify-between gap-4 border-b border-line py-3 text-ink"><span class="font-display text-[1.75rem] leading-tight font-[420]">{{ link.text_menue or link.text }}</span><svg class="size-5 text-brand" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="{{ link.href }}" class="flex min-h-16 items-center justify-between gap-4 border-b border-line py-3 {{ 'text-brand' if link.aktiv else 'text-ink' }}"{% if link.aktiv %} aria-current="page"{% endif %}><span class="font-display text-[1.75rem] leading-tight font-[420]">{{ link.text_menue or link.text }}</span>{% if link.aktiv %}<span class="label !text-brand">Sie sind hier</span>{% else %}<svg class="size-5 text-brand" aria-hidden="true"><use href="#i-arrow"/></svg>{% endif %}</a></li>
           {%- endfor %}
         </ul>
       </nav>

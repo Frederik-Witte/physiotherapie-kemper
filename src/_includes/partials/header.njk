@@ -1,6 +1,8 @@
-{#- Site header. On the homepage links are in-page anchors, on subpages they point back to the homepage. -#}
+{#- Site header. Navigation links come ready-made from eleventyComputed.js: in-page anchors on the
+    homepage, "/#…" elsewhere, and /team.html for the team page. Homepage and team page get the
+    mobile menu; the legal pages get a "Startseite" button instead. -#}
 {%- set start = (seite == "start") -%}
-{%- set basis = "" if start else "/" -%}
+{%- set mitMenue = (seite == "start" or seite == "team") -%}
   <!-- ============ Header ============ -->
   <header {% if start %}id="top" class="site-header sticky top-0 z-40 border-b border-transparent"{% else %}class="site-header is-solid sticky top-0 z-40 border-b"{% endif %}>
     <div class="mx-auto flex h-[4.25rem] max-w-[84rem] items-center justify-between gap-4 px-5 sm:px-8 lg:h-20 lg:px-12">
@@ -17,9 +19,9 @@
       </a>
 
       <nav aria-label="Hauptnavigation" class="hidden xl:block">
-        <ul class="flex items-center gap-8 text-[1rem] font-medium text-ink">
+        <ul class="flex items-center gap-7 text-[1rem] font-medium text-ink 2xl:gap-8">
           {%- for link in hauptmenue %}
-          <li><a class="nav-link" href="{{ basis }}#{{ link.ziel }}">{{ link.text }}</a></li>
+          <li><a class="nav-link" href="{{ link.href }}"{% if link.aktiv %} aria-current="page"{% endif %}{% if link.spy %} data-spy="{{ link.spy }}"{% endif %}>{{ link.text }}</a></li>
           {%- endfor %}
         </ul>
       </nav>
@@ -29,14 +31,16 @@
           <svg class="size-[1.1rem]" aria-hidden="true"><use href="#i-phone"/></svg>
           <span><span class="sr-only">Anrufen: </span>{{ praxis.telefon | nbsp }}</span>
         </a>
-        {%- if start %}
+        {%- if mitMenue %}
         <button type="button" id="menu-open" class="js-only inline-flex min-h-12 items-center gap-2.5 rounded-full border border-line px-4 font-semibold text-ink transition-colors hover:border-ink xl:hidden" aria-haspopup="dialog" aria-controls="menu" aria-expanded="false">
           <svg class="size-5" aria-hidden="true"><use href="#i-menu"/></svg>
           Menü
         </button>
+        {%- endif %}
+        {%- if start %}
         <a href="#kontakt" class="no-js-only inline-flex min-h-12 items-center rounded-full border border-line px-4 font-semibold text-ink xl:hidden">Kontakt</a>
         {%- else %}
-        <a href="/" class="inline-flex min-h-12 items-center gap-2 rounded-full border border-line px-4 font-semibold text-ink transition-colors hover:border-ink xl:hidden">
+        <a href="/" class="{% if mitMenue %}no-js-only {% endif %}inline-flex min-h-12 items-center gap-2 rounded-full border border-line px-4 font-semibold text-ink transition-colors hover:border-ink xl:hidden">
           <svg class="size-5 rotate-180" aria-hidden="true"><use href="#i-arrow"/></svg>
           Startseite
         </a>

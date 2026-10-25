@@ -1,4 +1,4 @@
-# Karriere: kleine Stellenanzeige im Team-Bereich der Startseite.
+# Karriere: kleine Stellenanzeige im Team-Bereich der Startseite und auf der Team-Seite.
 # „kontakt“ leer lassen = Bewerbungen gehen an die E-Mail-Adresse aus den Praxisdaten.
 
 anzeigen: true

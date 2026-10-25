@@ -571,43 +571,131 @@ collections:
         label: Team
         icon: groups
         file: src/_data/team.yml
-        preview_path: /#team
+        preview_path: /team.html
         fields:
           - name: anzeigen
-            label: Team-Bereich anzeigen
+            label: Team auf der Website zeigen
             widget: boolean
             default: true
-            comment: 'Team: Bereich „Ihr Team“ auf der Startseite.\nNamen und Fotos nur mit Einverständnis der jeweiligen Person veröffentlichen.'
-            hint: 'Ausschalten blendet den Bereich und die Links „Team“ aus. Die Stellenanzeige bleibt sichtbar, solange sie eingeschaltet ist.'
-          - name: eyebrow
-            label: Kleine Überschrift
-            widget: string
-          - name: titel
-            label: Überschrift
-            widget: string
-          - name: text
-            label: Einleitungstext
-            widget: text
-            required: false
-          - name: zitat
-            label: Leitsatz
-            widget: string
-            required: false
-            hint: 'Erscheint kursiv unter dem Text. Anführungszeichen bitte selbst setzen („…“).'
-          - name: hinweis
-            label: Kleiner Hinweis
-            widget: string
-            required: false
-            hint: 'z. B. „Unser ganzes Team stellen wir Ihnen hier bald ausführlich vor.“ Leer lassen = kein Hinweis.'
-          - name: mitglieder
-            label: Personen
-            label_singular: Person
+            comment: 'Team: Bereich „Die Inhaber“ auf der Startseite und die eigene Seite „Unser Team“ (/team.html).\nNamen und Fotos nur mit Einwilligung der jeweiligen Person veröffentlichen.\nMitarbeitende nur mit Vornamen und abgekürztem Nachnamen nennen, z. B. „Anna M.“.\nOhne Foto wird automatisch ein Monogramm (Initialen) gezeigt.'
+            hint: 'Ausschalten blendet den Bereich „Die Inhaber“ auf der Startseite, die Team-Seite und alle Links „Team“ aus. Die Stellenanzeige bleibt sichtbar, solange sie eingeschaltet ist.'
+          - name: startseite
+            label: Bereich auf der Startseite („Die Inhaber“)
+            widget: object
+            collapsed: true
+            comment: 'Bereich auf der Startseite: die Inhaber und ein Link zur Team-Seite'
+            hint: 'Zeigt die Inhaber aus der Liste „Inhaber“ weiter unten und einen Knopf zur Team-Seite.'
+            fields:
+              - name: eyebrow
+                label: Kleine Überschrift
+                widget: string
+              - name: titel
+                label: Überschrift
+                widget: string
+              - name: text
+                label: Einleitungstext
+                widget: text
+                required: false
+              - name: zitat
+                label: Leitsatz
+                widget: string
+                required: false
+                hint: 'Erscheint kursiv unter dem Text. Anführungszeichen bitte selbst setzen („…“).'
+              - name: link_text
+                label: Text des Knopfs zur Team-Seite
+                widget: string
+                required: false
+                hint: 'z. B. „Das ganze Team kennenlernen“. Leer lassen = kein Knopf.'
+          - name: seite
+            label: Team-Seite (/team.html)
+            widget: object
+            collapsed: true
+            comment: 'Eigene Seite „Unser Team“ (/team.html)'
+            hint: 'Texte und Foto der eigenen Seite „Unser Team“. Die Personen kommen aus den Listen „Inhaber“ und „Team-Mitglieder“ weiter unten.'
+            fields:
+              - name: seo_titel
+                label: Seitentitel (Browser-Tab & Google)
+                widget: string
+                hint: 'Ideal: höchstens 60 Zeichen.'
+              - name: seo_beschreibung
+                label: Beschreibung für Google
+                widget: text
+                hint: 'Ein bis zwei Sätze, ideal 120–160 Zeichen. Wird auch beim Teilen der Seite angezeigt.'
+              - name: eyebrow
+                label: Kleine Überschrift
+                widget: string
+              - name: titel
+                label: Hauptüberschrift
+                widget: string
+              - name: titel_betont
+                label: Betonter Schluss der Überschrift
+                widget: string
+                required: false
+                hint: 'Erscheint kursiv in Blau direkt hinter der Hauptüberschrift, z. B. „Ihrer Therapie.“'
+              - name: intro
+                label: Einleitungstext
+                widget: text
+                required: false
+                hint: 'Platzhalter wie {telefon} werden automatisch ersetzt.'
+              - name: zitat
+                label: Leitsatz
+                widget: string
+                required: false
+                hint: 'Erscheint groß und kursiv unter dem Text. Anführungszeichen bitte selbst setzen („…“).'
+              - name: bild
+                label: Foto
+                widget: image
+                required: false
+                choose_url: false
+                hint: 'Foto neben der Überschrift (am Handy darunter). Querformat, mindestens 1600 Pixel breit. Wird auch als Vorschaubild beim Teilen der Team-Seite verwendet. Leer lassen = kein Foto.'
+              - name: bild_alt
+                label: Bildbeschreibung (Alternativtext)
+                widget: string
+                required: false
+                hint: 'Ein Satz, was auf dem Foto zu sehen ist – für blinde Menschen und Suchmaschinen.'
+              - name: bildausschnitt
+                label: Bildausschnitt (für Fortgeschrittene)
+                widget: string
+                required: false
+                hint: 'Welcher Teil des Fotos beim Zuschneiden sichtbar bleibt: object-[X%_Y%], X = von links, Y = von oben (50%_50% = Mitte). Mit „lg:“ davor gilt ein Wert nur am Computer. Leer lassen = Bildmitte; nach einem Fototausch am besten leeren.'
+                pattern: ['^(?:(?:sm|md|lg|xl|2xl):)?(?:(?:object|origin)-\[\d{1,3}(?:\.\d+)?%_\d{1,3}(?:\.\d+)?%\]|object-(?:center|top|bottom|left|right|left-top|left-bottom|right-top|right-bottom)|scale-\[\d(?:\.\d{1,3})?\]|scale-(?:100|105|110|125))(?: +(?:(?:sm|md|lg|xl|2xl):)?(?:(?:object|origin)-\[\d{1,3}(?:\.\d+)?%_\d{1,3}(?:\.\d+)?%\]|object-(?:center|top|bottom|left|right|left-top|left-bottom|right-top|right-bottom)|scale-\[\d(?:\.\d{1,3})?\]|scale-(?:100|105|110|125)))*$', 'Bitte nur Angaben wie object-[50%_50%] oder lg:object-[60%_40%] verwenden, durch Leerzeichen getrennt.']
+              - name: inhaber_titel
+                label: Überschrift über den Inhabern
+                widget: string
+                hint: 'z. B. „Die Inhaber“.'
+              - name: inhaber_text
+                label: Text unter dieser Überschrift
+                widget: string
+                required: false
+                hint: 'Ein kurzer Satz. Leer lassen = kein Text.'
+              - name: team_titel
+                label: Überschrift über dem Team
+                widget: string
+                hint: 'z. B. „Unser Praxisteam“. Darunter folgen die Team-Mitglieder, nach Bereichen gruppiert („Therapie“, „Empfang & Verwaltung“).'
+              - name: team_text
+                label: Text unter dieser Überschrift
+                widget: string
+                required: false
+                hint: 'Ein kurzer Satz. Leer lassen = kein Text.'
+              - name: anruf_titel
+                label: Anruf-Kasten – Überschrift
+                widget: string
+                required: false
+                hint: 'Blauer Kasten am Ende der Seite mit der Telefonnummer und „Route planen“. Leer lassen = kein Kasten.'
+              - name: anruf_text
+                label: Anruf-Kasten – Text
+                widget: text
+                required: false
+                hint: 'Platzhalter wie {telefon} werden automatisch ersetzt.'
+          - name: inhaber
+            label: Inhaber
+            label_singular: Inhaber
             widget: list
             required: false
             collapsed: true
             summary: '{{name}} – {{rolle}}'
             thumbnail: foto
-            hint: 'Bitte nur mit Einverständnis der jeweiligen Person veröffentlichen. Am Computer stehen 3 Personen nebeneinander.'
+            hint: 'Erscheinen auf der Startseite (Bereich „Die Inhaber“) und als große Karten auf der Team-Seite. Namen und Fotos nur mit Einwilligung der jeweiligen Person veröffentlichen.'
             fields:
               - name: name
                 label: Name
@@ -616,43 +704,92 @@ collections:
                 label: Funktion
                 widget: string
                 required: false
-                hint: 'z. B. „Physiotherapeutin“. Mehrere Angaben mit „ · “ trennen, z. B. „Inhaber · Physiotherapeut“.'
-              - name: foto
-                label: Foto
-                widget: image
-                required: false
-                choose_url: false
-                hint: 'Porträt, möglichst quadratisch – wird rund zugeschnitten. Ohne Foto erscheinen die Initialen.'
-              - name: text
-                label: Kurzvorstellung
-                widget: text
-                required: false
-                hint: 'Ein bis zwei Sätze. Leer lassen = keine Vorstellung.'
+                hint: 'Mehrere Angaben mit „ · “ trennen, z. B. „Inhaber · Physiotherapeut“.'
               - name: qualifikationen
                 label: Qualifikationen
                 label_singular: Qualifikation
                 widget: list
                 required: false
-                hint: 'Eine Qualifikation pro Zeile, z. B. „Manuelle Therapie“. Mit Enter kommt eine neue Zeile dazu.'
+                hint: 'Erscheinen als kleine Kästchen unter der Funktion. Eine Qualifikation pro Zeile, z. B. „Manuelle Therapie“ – bitte nur abgeschlossene Fortbildungen.'
+              - name: foto
+                label: Foto
+                widget: image
+                required: false
+                choose_url: false
+                hint: 'Porträt, hochkant oder quadratisch, mindestens 800 Pixel breit, Gesicht im oberen Teil des Fotos. Wird rund zugeschnitten. Ohne Foto erscheinen die Initialen. Nur mit Einwilligung der Person.'
+              - name: text
+                label: Kurzvorstellung
+                widget: text
+                required: false
+                hint: 'Ein bis zwei Sätze. Leer lassen = keine Vorstellung.'
               - name: sichtbar
                 label: Auf der Website zeigen
                 widget: boolean
                 default: true
                 hint: 'Ausschalten, um eine Person vorübergehend auszublenden, ohne den Eintrag zu löschen.'
+          - name: mitglieder
+            label: Team-Mitglieder
+            label_singular: Team-Mitglied
+            widget: list
+            required: false
+            collapsed: true
+            summary: '{{name}} – {{rolle}} ({{bereich}})'
+            thumbnail: foto
+            comment: 'Stand: Team-Seite der Praxis, Januar 2023 – bitte prüfen, aktualisieren und nur mit Einwilligung veröffentlichen.'
+            hint: 'Erscheinen auf der Team-Seite, nach Bereichen gruppiert. Bitte nur mit schriftlicher Einwilligung der jeweiligen Person veröffentlichen. Die Website ist öffentlich und ihre Versionsgeschichte auch: Mitarbeitende deshalb nur mit Vornamen und abgekürztem Nachnamen eintragen, z. B. „Anna M.“. Ein Bereich ohne sichtbare Person wird automatisch ausgeblendet.'
+            fields:
+              - name: name
+                label: Vorname und abgekürzter Nachname
+                widget: string
+                hint: 'z. B. „Anna M.“ oder „Lisa Marie T.“ – nie den vollen Nachnamen.'
+                pattern: ['/^\S.*\s\p{Lu}\.$/u', 'Bitte Vorname und abgekürzten Nachnamen mit Punkt eingeben, z. B. „Anna M.“']
+              - name: rolle
+                label: Funktion
+                widget: string
+                required: false
+                hint: 'z. B. „Physiotherapeutin“, „Anmeldung“ oder „Verwaltung“.'
+              - name: bereich
+                label: Bereich
+                widget: select
+                default: Therapie
+                options: [Therapie, Empfang & Verwaltung]
+                hint: 'Unter welcher Überschrift die Person auf der Team-Seite steht.'
+              - name: qualifikationen
+                label: Qualifikationen
+                label_singular: Qualifikation
+                widget: list
+                required: false
+                hint: 'Erscheinen als kleine Kästchen unter der Funktion. Eine pro Zeile, z. B. „Bobath-Therapeutin“ – bitte nur abgeschlossene Fortbildungen.'
+              - name: foto
+                label: Foto
+                widget: image
+                required: false
+                choose_url: false
+                hint: 'Porträt, hochkant oder quadratisch, mindestens 800 Pixel breit, Gesicht im oberen Teil des Fotos. Wird rund zugeschnitten. Ohne Foto erscheinen die Initialen. Nur mit Einwilligung der Person. Benennen Sie das Foto vor dem Hochladen ohne Nachnamen, z. B. „team-anna-m.jpg“ – Dateinamen sind öffentlich und bleiben in der Versionsgeschichte.'
+              - name: text
+                label: Kurzvorstellung
+                widget: text
+                required: false
+                hint: 'Ein bis zwei Sätze. Leer lassen = keine Vorstellung.'
+              - name: sichtbar
+                label: Auf der Website zeigen
+                widget: boolean
+                default: true
+                hint: 'Ausschalten, um eine Person auszublenden, ohne den Eintrag zu löschen – z. B. solange die Einwilligung noch fehlt.'
 
       # ------------------------------------------------------------------ karriere.yml
       - name: karriere
         label: Stellenanzeige
         icon: work
         file: src/_data/karriere.yml
-        preview_path: /#team
+        preview_path: /
         fields:
           - name: anzeigen
             label: Stellenanzeige anzeigen
             widget: boolean
             default: false
-            comment: 'Karriere: kleine Stellenanzeige im Team-Bereich der Startseite.'
-            hint: 'Kleiner Kasten im Team-Bereich. Ausschalten, sobald die Stelle besetzt ist.'
+            comment: 'Karriere: kleine Stellenanzeige im Team-Bereich der Startseite und auf der Team-Seite.\n„kontakt“ leer lassen = Bewerbungen gehen an die E-Mail-Adresse aus den Praxisdaten.'
+            hint: 'Kleiner Kasten im Team-Bereich der Startseite und auf der Team-Seite. Ausschalten, sobald die Stelle besetzt ist.'
           - name: label
             label: Kleine Überschrift
             widget: string
@@ -851,15 +988,17 @@ collections:
             widget: list
             collapsed: true
             summary: '{{text}} → {{ziel}}'
-            comment: 'Navigation & Fußzeile.\n„ziel“ ist der Bereich der Startseite: willkommen, team, leistungen, praxis, ablauf, fragen oder kontakt.'
-            hint: 'Links zu ausgeblendeten Bereichen (z. B. Team) werden automatisch weggelassen. Reihenfolge mit den Pfeilen ändern.'
+            comment: 'Navigation & Fußzeile.\n„ziel“ ist ein Bereich der Startseite (willkommen, team, leistungen, praxis, ablauf, fragen, kontakt)\noder „teamseite“ für die eigene Seite „Unser Team“ (/team.html).\nLinks zu ausgeblendeten Bereichen (z. B. Team) werden automatisch weggelassen.'
+            hint: 'Links zu ausgeblendeten Bereichen (z. B. Team) werden automatisch weggelassen. Reihenfolge mit den Pfeilen ändern. Am Computer passen höchstens 7 kurze Menüpunkte nebeneinander.'
             fields:
               - name: ziel
-                label: Ziel (Bereich der Startseite)
+                label: Ziel
                 widget: select
+                hint: '„Team-Seite“ öffnet die eigene Seite „Unser Team“, alle anderen Ziele springen zu einem Bereich der Startseite.'
                 options:
                   - { label: Über uns, value: willkommen }
-                  - { label: Team, value: team }
+                  - { label: Team-Seite (eigene Seite „Unser Team“), value: teamseite }
+                  - { label: Team (Bereich „Die Inhaber“ auf der Startseite), value: team }
                   - { label: Leistungen, value: leistungen }
                   - { label: Die Praxis (Galerie), value: praxis }
                   - { label: Ablauf, value: ablauf }
@@ -893,11 +1032,12 @@ collections:
                 summary: '{{text}} → {{ziel}}'
                 fields:
                   - name: ziel
-                    label: Ziel (Bereich der Startseite)
+                    label: Ziel
                     widget: select
                     options:
                       - { label: Über uns, value: willkommen }
-                      - { label: Team, value: team }
+                      - { label: Team-Seite (eigene Seite „Unser Team“), value: teamseite }
+                      - { label: Team (Bereich „Die Inhaber“ auf der Startseite), value: team }
                       - { label: Leistungen, value: leistungen }
                       - { label: Die Praxis (Galerie), value: praxis }
                       - { label: Ablauf, value: ablauf }

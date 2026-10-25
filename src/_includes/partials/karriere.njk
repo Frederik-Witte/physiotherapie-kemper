@@ -1,0 +1,17 @@
+{#- Career box „Wir suchen Verstärkung“ (karriere.yml) – homepage team section and team page.
+    Set `karriereKlassen` before the include for extra classes on the box (e.g. "mt-8 "). -#}
+            <aside class="{{ karriereKlassen }}grid gap-5 rounded-[1.5rem] bg-stone p-6 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-8 sm:p-8" aria-labelledby="karriere-title">
+              <div>
+                {%- if karriere.label %}
+                <p class="label !text-brand">{{ karriere.label }}</p>
+                {%- endif %}
+                <h3 id="karriere-title" class="font-display mt-2 text-[1.5rem] leading-tight font-[450]">{{ karriere.titel }}</h3>
+                {%- if karriere.text %}
+                <p class="mt-2 max-w-[34rem]">{{ karriere.text | platzhalter(praxis) | safe }}</p>
+                {%- endif %}
+              </div>
+              <a href="mailto:{{ karriere.kontakt or praxis.email }}{% if karriere.betreff %}?subject={{ karriere.betreff | urlencode }}{% endif %}" class="btn btn-ghost !border-ink/25 bg-paper">
+                <svg class="size-5" aria-hidden="true"><use href="#i-mail"/></svg>
+                {{ karriere.button }}
+              </a>
+            </aside>

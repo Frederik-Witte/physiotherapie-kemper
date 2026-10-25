@@ -119,7 +119,7 @@
   @media (min-width: 64rem) {
     body { font-size: 1.125rem; }
   }
-  h1, h2, h3 {
+  h1, h2, h3, h4 {
     text-wrap: balance;
     color: var(--color-ink);
   }
@@ -130,6 +130,10 @@
     outline-offset: 3px;
     border-radius: 6px;
   }
+  /* On the navy surfaces (call boxes, Kontakt, Ablauf, banner, footer) logo blue is too dark for a
+     focus ring (2.8:1) – use the light blue there (9.3:1) */
+  .bg-navy-900 :focus-visible,
+  .bg-navy-950 :focus-visible { outline-color: var(--color-brand-light); }
   img { max-width: 100%; height: auto; }
 
   /* JS / no-JS switches */
@@ -303,7 +307,8 @@
     transition: transform 0.35s var(--ease-calm);
   }
   .nav-link:hover::after,
-  .nav-link[aria-current="true"]::after { transform: scaleX(1); }
+  .nav-link[aria-current="true"]::after,
+  .nav-link[aria-current="page"]::after { transform: scaleX(1); }
 
   /* Mobile menu dialog */
   .menu-dialog {
@@ -339,7 +344,8 @@
   .stars { display: inline-flex; gap: 0.1rem; color: var(--color-oak); }
   .stars svg { width: 1rem; height: 1rem; }
 
-  /* Monogram avatars for the owners */
+  /* Monogram avatars (initials, or a round photo) for the team.
+     --monogram-ring: colour of the gap ring, i.e. the background the avatar sits on. */
   .monogram {
     display: inline-flex;
     align-items: center;
@@ -356,11 +362,34 @@
     font-weight: 400;
     letter-spacing: 0.02em;
     line-height: 1;
-    box-shadow: 0 0 0 5px var(--color-paper), 0 0 0 6px var(--color-line);
+    box-shadow: 0 0 0 5px var(--monogram-ring, var(--color-paper)), 0 0 0 6px var(--color-line);
   }
   .monogram i { font-style: italic; color: var(--color-brand-light); margin-left: 0.04em; }
   @media (min-width: 40rem) {
     .monogram { width: 5.5rem; height: 5.5rem; font-size: 1.95rem; }
+  }
+  /* Larger variant for the owners on the team page (phones keep the regular size, so name and
+     role still fit next to it) */
+  @media (min-width: 40rem) {
+    .monogram-lg { width: 7rem; height: 7rem; font-size: 2.45rem; box-shadow: 0 0 0 6px var(--monogram-ring, var(--color-paper)), 0 0 0 7px var(--color-line); }
+  }
+
+  /* Qualification chips (team). Sized so a qualification of up to about 28 characters stays on one
+     line next to the avatar even on a 360px phone; a longer one wraps into a rounded tag with
+     balanced lines instead of a tall stadium. */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    text-wrap: balance;
+    border: 1px solid var(--color-line);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.3;
   }
 
   /* Leistungen: categories collapse on phones/tablets (JS only, content stays visible without JS) */

@@ -1,0 +1,145 @@
+---
+layout: layouts/base.njk
+seite: team
+---
+{#- Team page /team.html (team.yml → seite, inhaber, mitglieder; karriere.yml). The permalink is set in
+    team.11tydata.js: the page is only built while the team is switched on and someone is visible. -#}
+{%- from "partials/team-bausteine.njk" import avatar, chips -%}
+{%- set s = team.seite or {} -%}
+{%- set inhaberTitel = s.inhaber_titel or "Die Inhaber" -%}
+{%- set teamTitel = s.team_titel or "Unser Praxisteam" %}
+  <main id="main">
+
+    <!-- ============ Seitenkopf ============ -->
+    <section class="pt-8 pb-14 sm:pt-14 sm:pb-16 lg:pt-20 lg:pb-20" aria-labelledby="team-title">
+      <div class="mx-auto grid max-w-[84rem] gap-10 px-5 sm:px-8 lg:grid-cols-12 lg:items-center lg:gap-12 lg:px-12">
+        <div class="lg:col-span-6{% if not s.bild %} lg:col-span-8{% endif %}">
+          <p class="eyebrow">{{ s.eyebrow }}</p>
+          <h1 id="team-title" class="font-display mt-5 text-[2.15rem] leading-[1.06] font-[400] tracking-[-0.02em] sm:mt-6 sm:text-[3.4rem] lg:text-[3rem] xl:text-[4rem]">
+            {{ s.titel }}{% if s.titel_betont %} <em class="inline-block font-[380] text-navy-800 italic">{{ s.titel_betont }}</em>{% endif %}
+          </h1>
+          {%- if s.intro %}
+          <p class="mt-5 max-w-[34rem] text-[1.0625rem] leading-relaxed sm:mt-7 sm:text-[1.2rem]">{{ s.intro | platzhalter(praxis) | safe }}</p>
+          {%- endif %}
+          {%- if s.zitat %}
+          <p class="font-display mt-4 text-[1.45rem] leading-snug font-[400] text-ink italic sm:mt-5 sm:text-[1.6rem]">{{ s.zitat }}</p>
+          {%- endif %}
+        </div>
+        {%- if s.bild %}
+        <div class="lg:col-span-6">
+          <div class="photo aspect-[4/3] rounded-[1.5rem] sm:aspect-[16/10] lg:aspect-[5/4] lg:rounded-[2rem]">
+            <img src="{{ s.bild }}" sizes="(min-width: 1344px) 624px, (min-width: 1024px) 46vw, 100vw" loading="eager" fetchpriority="high" decoding="async"{% if s.bildausschnitt %} class="{{ s.bildausschnitt }}"{% endif %} alt="{{ s.bild_alt | klartext(praxis) }}">
+          </div>
+        </div>
+        {%- endif %}
+      </div>
+    </section>
+    {%- if teamInhaber.length %}
+
+    <!-- ============ Die Inhaber ============ -->
+    <section id="inhaber" class="pb-16 sm:pb-24 lg:pb-28" aria-labelledby="inhaber-title">
+      <div class="mx-auto max-w-[84rem] px-5 sm:px-8 lg:px-12">
+        <div class="border-t border-line pt-12 sm:pt-16">
+          <h2 id="inhaber-title" class="font-display text-[2rem] leading-[1.1] font-[420] tracking-[-0.015em] sm:text-[2.5rem] lg:text-[2.7rem]">{{ inhaberTitel }}</h2>
+          {%- if s.inhaber_text %}
+          <p class="mt-3 max-w-[36rem] sm:mt-4">{{ s.inhaber_text | platzhalter(praxis) | safe }}</p>
+          {%- endif %}
+        </div>
+        <ul class="mt-8 grid gap-4 [--monogram-ring:var(--color-stone)] sm:mt-10 md:grid-cols-3 lg:gap-6">
+          {%- for person in teamInhaber %}
+          <li class="flex items-center gap-5 rounded-[1.5rem] bg-stone p-5 sm:gap-8 sm:p-8 md:flex-col md:items-start md:gap-6 md:p-5 lg:gap-8 lg:rounded-[1.75rem] lg:p-8 xl:p-9">
+            {{ avatar(person, true) }}
+            <div class="min-w-0 flex-1">
+              <h3 class="font-display text-[1.45rem] leading-tight font-[450] sm:text-[1.8rem] md:text-[1.45rem] lg:text-[1.6rem] xl:text-[1.8rem]">{{ person.name }}</h3>
+              {%- if person.rolle %}
+              <p class="mt-1.5 text-[1rem] leading-snug text-muted lg:text-[1.0625rem]">{{ person.rolle | punkte }}</p>
+              {%- endif %}
+              {%- if person.text %}
+              <p class="mt-3 max-w-[26rem] text-[1rem] leading-snug">{{ person.text }}</p>
+              {%- endif %}
+              {{ chips(person.qualifikationen, "mt-4 ") }}
+            </div>
+          </li>
+          {%- endfor %}
+        </ul>
+      </div>
+    </section>
+    {%- endif %}
+    {%- if teamGruppen.length or abschnitte.karriere %}
+
+    <!-- ============ Praxisteam ============ -->
+    <section id="praxisteam" class="pb-10 sm:pb-14 lg:pb-16" aria-labelledby="{{ 'praxisteam-title' if teamGruppen.length else 'karriere-title' }}">
+      <div class="mx-auto max-w-[84rem] px-5 sm:px-8 lg:px-12">
+        {%- if teamGruppen.length %}
+        <div class="border-t border-line pt-12 sm:pt-16">
+          <h2 id="praxisteam-title" class="font-display text-[2rem] leading-[1.1] font-[420] tracking-[-0.015em] sm:text-[2.5rem] lg:text-[2.7rem]">{{ teamTitel }}</h2>
+          {%- if s.team_text %}
+          <p class="mt-3 max-w-[36rem] sm:mt-4">{{ s.team_text | platzhalter(praxis) | safe }}</p>
+          {%- endif %}
+        </div>
+        <div class="mt-10 sm:mt-12">
+          {%- for gruppe in teamGruppen %}
+          {%- set kennung = gruppe.titel | kennung %}
+          <section class="border-t border-ink/80 pt-6 pb-10 sm:pt-7 sm:pb-14 lg:pb-16" aria-labelledby="bereich-{{ kennung }}">
+            <h3 id="bereich-{{ kennung }}" class="font-display text-[1.45rem] leading-tight font-[450] sm:text-[1.6rem] lg:text-[1.75rem]">{{ gruppe.titel }}</h3>
+            <ul class="mt-4 grid sm:mt-5 md:grid-cols-2 md:gap-x-8 lg:mt-8 lg:grid-cols-3 lg:gap-y-12 xl:grid-cols-4">
+              {%- for person in gruppe.personen %}
+              <li class="flex items-center gap-5 border-b border-line py-5 last:border-b-0 md:[&:nth-last-child(2):nth-child(odd)]:border-b-0 lg:flex-col lg:items-start lg:border-b-0 lg:py-0">
+                {{ avatar(person) }}
+                <div class="min-w-0">
+                  <h4 class="font-display text-[1.3rem] leading-tight font-[450] sm:text-[1.45rem]">{{ person.name }}</h4>
+                  {%- if person.rolle %}
+                  <p class="mt-1 text-[1rem] leading-snug text-muted">{{ person.rolle | punkte }}</p>
+                  {%- endif %}
+                  {%- if person.text %}
+                  <p class="mt-3 max-w-[22rem] text-[1rem] leading-snug">{{ person.text }}</p>
+                  {%- endif %}
+                  {{ chips(person.qualifikationen, "mt-3 ") }}
+                </div>
+              </li>
+              {%- endfor %}
+            </ul>
+          </section>
+          {%- endfor %}
+        </div>
+        {%- endif %}
+        {%- if abschnitte.karriere %}
+        {%- set karriereKlassen = "" %}
+        <div{% if not teamGruppen.length %} class="border-t border-line pt-12 sm:pt-16"{% endif %}>
+{% include "partials/karriere.njk" %}
+        </div>
+        {%- endif %}
+      </div>
+    </section>
+    {%- endif %}
+    {%- if s.anruf_titel %}
+
+    <!-- ============ Anruf ============ -->
+    <section class="pb-16 sm:pb-24 lg:pb-28" aria-labelledby="anruf-title">
+      <div class="mx-auto max-w-[84rem] px-5 sm:px-8 lg:px-12">
+        <div class="flex flex-col gap-7 rounded-[1.75rem] bg-navy-900 p-6 text-paper sm:p-10 lg:rounded-[2.25rem] lg:p-14 xl:flex-row xl:items-center xl:justify-between xl:gap-12">
+          <div>
+            <h2 id="anruf-title" class="font-display text-[1.75rem] leading-[1.15] font-[420] tracking-[-0.01em] !text-paper sm:text-[2.2rem] lg:text-[2.5rem]">{{ s.anruf_titel }}</h2>
+            {%- if s.anruf_text %}
+            <p class="mt-3 max-w-[34rem] text-paper/85 sm:mt-4">{{ s.anruf_text | platzhalter(praxis, "light") | safe }}</p>
+            {%- endif %}
+          </div>
+          <div class="flex flex-col gap-3 sm:flex-row xl:shrink-0" data-call-cta>
+            <a href="tel:{{ praxis.telefon_link }}" class="btn btn-light">
+              <svg class="size-5" aria-hidden="true"><use href="#i-phone"/></svg>
+              {{ praxis.telefon | nbsp }}
+            </a>
+            {%- if praxis.routenlink %}
+            <a href="{{ praxis.routenlink }}" target="_blank" rel="noopener" class="btn btn-outline-light">
+              <svg class="size-5" aria-hidden="true"><use href="#i-pin"/></svg>
+              {{ startseite.kontakt.button_route or "Route planen" }}
+              <svg class="size-4 opacity-70" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
+              <span class="sr-only">(öffnet Google Maps in einem neuen Fenster)</span>
+            </a>
+            {%- endif %}
+          </div>
+        </div>
+      </div>
+    </section>
+    {%- endif %}
+  </main>

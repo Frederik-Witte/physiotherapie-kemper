@@ -12,6 +12,7 @@ mit dieser Anleitung können Sie Texte, Leistungen, Öffnungszeiten, Fotos und v
 |---|---|
 | Ihre Website | <https://frederik-witte.github.io/physiotherapie-kemper/> |
 | Website bearbeiten | <https://frederik-witte.github.io/physiotherapie-kemper/admin/> |
+| Team-Seite | <https://frederik-witte.github.io/physiotherapie-kemper/team.html> |
 | Wann ist eine Änderung online? | etwa 1–2 Minuten nach dem Speichern |
 
 Legen Sie sich am besten gleich ein Lesezeichen für die Seite „Website bearbeiten“ an.
@@ -124,8 +125,8 @@ Nach der Anmeldung sehen Sie links den Bereich **„Inhalte“**. Darin ist die 
 | **Praxisdaten & Öffnungszeiten** | Telefon, Fax, E-Mail, Adresse, Öffnungszeiten, Urlaubs-Hinweis, Google-Bewertung, Facebook |
 | **Startseite (Startbild, Über uns, Kontakt)** | Startbild mit Überschrift, Kurzfakten, „Über uns“, Kontakt & Anfahrt, Angaben für Google |
 | **Leistungen** | Leistungsbereiche und alle einzelnen Leistungen mit Erklärung |
-| **Team** | Die Inhaber und weitere Team-Mitglieder |
-| **Stellenanzeige** | Der kleine Kasten „Wir suchen Verstärkung“ |
+| **Team** | Die Inhaber (Startseite und Team-Seite), alle Team-Mitglieder und die Texte der Team-Seite |
+| **Stellenanzeige** | Der kleine Kasten „Wir suchen Verstärkung“ (Startseite und Team-Seite) |
 | **Praxis-Galerie („Die Praxis“)** | Die Fotos Ihrer Räume |
 | **Ablauf der Behandlung** | „So läuft Ihre Behandlung ab“ und „Bitte mitbringen“ |
 | **Häufige Fragen** | Fragen und Antworten |
@@ -178,28 +179,43 @@ Eine Leistung entfernen Sie über den Knopf „Dieses Element entfernen“ am je
 
 ### Team-Mitglied hinzufügen
 
+Ihr Team erscheint an zwei Stellen:
+
+- auf der **Startseite** im Bereich „Die Inhaber“, mit dem Knopf „Das ganze Team kennenlernen“,
+- auf der eigenen **Team-Seite** <https://frederik-witte.github.io/physiotherapie-kemper/team.html>: oben die drei Inhaber als große Karten, darunter alle Team-Mitglieder, geordnet nach den Bereichen „Therapie“ und „Empfang & Verwaltung“.
+
+Im Menü der Website führt der Punkt **„Team“** zu dieser Seite.
+
 > **Bitte zuerst die Einwilligung einholen.** Namen und vor allem Fotos von Mitarbeitenden dürfen nur mit deren Einverständnis im Internet erscheinen. Lassen Sie sich die Einwilligung schriftlich geben und heben Sie sie auf. Sie kann jederzeit widerrufen werden; dann nehmen Sie den Eintrag wieder heraus.
 
+> **Nur Vorname und abgekürzter Nachname.** Ihre Website und ihre gesamte Versionsgeschichte sind öffentlich einsehbar. Tragen Sie Mitarbeitende deshalb immer nur mit Vornamen und dem ersten Buchstaben des Nachnamens ein, zum Beispiel „Anna M.“. Das Namensfeld nimmt auch nur diese Schreibweise an. (Nur die Inhaber stehen mit vollem Namen da, denn die Praxis trägt ihren Namen.)
+
 1. Öffnen Sie **„Inhalte“ → „Team“**.
-2. Klicken Sie unter **„Personen“** auf **„Person hinzufügen“**.
+2. Klicken Sie unter **„Team-Mitglieder“** auf **„Team-Mitglied hinzufügen“**.
 3. Füllen Sie aus:
-   - **Name**
-   - **Funktion**, zum Beispiel „Physiotherapeutin“. Mehrere Angaben trennen Sie mit einem Mittelpunkt: „Physiotherapeutin · Lymphdrainage“
+   - **Vorname und abgekürzter Nachname**, zum Beispiel „Anna M.“ oder „Lisa Marie T.“
+   - **Funktion**, zum Beispiel „Physiotherapeutin“, „Anmeldung“ oder „Verwaltung“. Mehrere Angaben trennen Sie mit einem Mittelpunkt: „Physiotherapeutin · Lymphdrainage“
+   - **Bereich**: „Therapie“ oder „Empfang & Verwaltung“. Unter dieser Überschrift erscheint die Person auf der Team-Seite.
+   - **Qualifikationen** (freiwillig): eine Fortbildung pro Zeile, zum Beispiel „Bobath-Therapeutin“. Sie erscheinen als kleine Kästchen unter der Funktion. Bitte nur abgeschlossene Fortbildungen nennen.
    - **Foto** (freiwillig). Ohne Foto zeigt die Website automatisch die Initialen in einem Kreis.
    - **Kurzvorstellung** (freiwillig): ein bis zwei Sätze
-   - **Qualifikationen** (freiwillig): eine Fortbildung pro Zeile, zum Beispiel „Manuelle Therapie“. Bitte nur abgeschlossene Fortbildungen nennen.
    - **Auf der Website zeigen**: eingeschaltet lassen
-4. **„Speichern“** klicken.
+4. Mit „Nach oben“ und „Nach unten“ am Eintrag ändern Sie die Reihenfolge. Innerhalb eines Bereichs erscheinen die Personen in der Reihenfolge der Liste.
+5. **„Speichern“** klicken.
 
-**Fotos fürs Team:** möglichst quadratisch, Gesicht in der Mitte, mindestens 400 × 400 Pixel, ruhiger Hintergrund. Das Foto erscheint klein und rund.
+**Die Inhaber** stehen in der eigenen Liste **„Inhaber“** mit denselben Feldern (ohne „Bereich“). Sie erscheinen auf der Startseite und auf der Team-Seite.
 
-**Ausblenden:** Mit „Auf der Website zeigen“ blenden Sie eine Person vorübergehend aus. Mit dem Schalter **„Team-Bereich anzeigen“** ganz oben blenden Sie den ganzen Team-Bereich aus. Die Stellenanzeige bleibt dabei sichtbar, solange sie unter „Stellenanzeige“ eingeschaltet ist.
+**Texte der Team-Seite:** Unter **„Team-Seite (/team.html)“** ändern Sie Überschrift, Einleitung, Leitsatz und Foto oben auf der Seite, die Überschriften „Die Inhaber“ und „Unser Praxisteam“, den blauen Anruf-Kasten am Ende und die Angaben für Google. Unter **„Bereich auf der Startseite („Die Inhaber“)“** stehen die Texte des Team-Bereichs auf der Startseite und die Beschriftung des Knopfs zur Team-Seite.
+
+**Fotos fürs Team:** Porträt hochkant oder quadratisch, **mindestens 800 Pixel breit**, Gesicht im oberen Teil des Fotos, ruhiger Hintergrund. Das Foto wird rund zugeschnitten. Am schönsten wirkt es, wenn alle Team-Fotos ähnlich aufgenommen sind (gleicher Hintergrund, gleiches Licht). **Wichtig:** Benennen Sie das Foto vor dem Hochladen ohne Nachnamen, zum Beispiel „team-anna-m.jpg“. Dateinamen sind öffentlich und bleiben in der Versionsgeschichte, auch wenn Sie das Foto später löschen.
+
+**Ausblenden:** Mit „Auf der Website zeigen“ blenden Sie eine Person aus, ohne den Eintrag zu löschen, zum Beispiel solange die Einwilligung noch fehlt. Ist in einem Bereich niemand mehr sichtbar, verschwindet auch seine Überschrift. Mit dem Schalter **„Team auf der Website zeigen“** ganz oben blenden Sie das ganze Team aus: den Bereich „Die Inhaber“ auf der Startseite, die Team-Seite und den Menüpunkt „Team“. Die Stellenanzeige bleibt dabei auf der Startseite sichtbar, solange sie unter „Stellenanzeige“ eingeschaltet ist.
 
 **Wenn jemand die Praxis verlässt:** Eintrag entfernen und speichern. Ältere Versionen bleiben bei GitHub in der Versionsgeschichte gespeichert, und diese ist öffentlich einsehbar. Muss ein Foto oder Name vollständig verschwinden, sagen Sie bitte Ihrem technischen Ansprechpartner Bescheid.
 
 ### Foto austauschen
 
-Fotos gibt es im Startbild, bei „Über uns“, bei jedem Leistungsbereich, in der Praxis-Galerie und bei „Kontakt & Anfahrt“.
+Fotos gibt es im Startbild, bei „Über uns“, bei jedem Leistungsbereich, in der Praxis-Galerie, bei „Kontakt & Anfahrt“ und oben auf der Team-Seite. Für Porträts von Team-Mitgliedern gelten eigene Hinweise (siehe [Team-Mitglied hinzufügen](#team-mitglied-hinzufügen)).
 
 **So wird das Foto gut:**
 
@@ -208,7 +224,7 @@ Fotos gibt es im Startbild, bei „Über uns“, bei jedem Leistungsbereich, in 
 - hell, scharf, aufgeräumt
 - Personen nur mit deren Einwilligung, Patientinnen und Patienten am besten gar nicht
 
-Um alles Technische müssen Sie sich nicht kümmern: Beim Hochladen wird das Foto automatisch auf eine passende Größe gebracht, der Dateiname wird bereinigt, und Kameradaten wie der Aufnahmeort werden entfernt. Beim Erstellen der Website entstehen daraus außerdem kleinere, schnelle Versionen für Smartphones.
+Um alles Technische müssen Sie sich nicht kümmern: Beim Hochladen wird das Foto automatisch auf eine passende Größe gebracht, der Dateiname wird bereinigt (Kleinbuchstaben, keine Leer- und Sonderzeichen – Namen darin bleiben erhalten), und Kameradaten wie der Aufnahmeort werden entfernt. Beim Erstellen der Website entstehen daraus außerdem kleinere, schnelle Versionen für Smartphones.
 
 **So tauschen Sie ein Foto aus:**
 
@@ -285,7 +301,7 @@ Mit dem Schalter **„Bewertung anzeigen“** blenden Sie das Abzeichen aus. Bit
 Die Website ist im Moment eine **Vorschau**. Sie ist für Google unsichtbar und ersetzt noch nicht Ihre bisherige Website physiotherapie-kemper.de. Bevor sie das tut, gehen Sie bitte diese Punkte durch:
 
 - [ ] **Öffnungszeiten bestätigen.** Die eingetragenen Zeiten (Mo–Do 07:20–18:00, Fr 07:20–16:00) stammen aus öffentlichen Verzeichnissen. Bitte prüfen und bei Bedarf korrigieren.
-- [ ] **Team und Einwilligungen.** Stimmen Namen und Funktionen der drei Inhaber? Liegen für alle gezeigten Personen die Einwilligungen für Namen und Fotos vor?
+- [ ] **Team-Seite und Einwilligungen.** Öffnen Sie <https://frederik-witte.github.io/physiotherapie-kemper/team.html>. Stimmen Namen und Funktionen der drei Inhaber? Die Team-Mitglieder stammen von der früheren Team-Seite der Praxis (Stand Januar 2023): Wer ist heute noch im Team, und stimmen Funktion, Bereich und Qualifikationen? Liegt für jede gezeigte Person die schriftliche Einwilligung für Namen (und gegebenenfalls Foto) vor? Personen ohne Einwilligung blenden Sie unter „Team“ mit „Auf der Website zeigen“ aus oder entfernen sie. Neue Kolleginnen und Kollegen ergänzen Sie wie unter [Team-Mitglied hinzufügen](#team-mitglied-hinzufügen) beschrieben.
 - [ ] **Osteopathie-Formulierung prüfen.** Osteopathie gilt in Deutschland rechtlich als Heilkunde. Bitte klären Sie, zum Beispiel mit Ihrem Berufsverband, ob die Erklärung der Leistung und die Funktion „Osteopath“ in dieser Form verwendet werden dürfen. Zusätze wie „D.O.“ oder „Heilpraktiker“ bitte nur, wenn sie tatsächlich zutreffen.
 - [ ] **Impressum vervollständigen.** Prüfen Sie das Feld **„Herausgeber“** (eine Angabe pro Zeile). Außerdem fehlen noch Pflichtangaben: alle vertretungsberechtigten Gesellschafter der GbR, die Berufsbezeichnung und der Staat, in dem sie verliehen wurde, die berufsrechtlichen Regelungen, die zuständige Aufsichtsbehörde und gegebenenfalls die Umsatzsteuer-Identifikationsnummer. Danach schalten Sie unter „Impressum & Datenschutz“ → „Impressum“ → „Hinweiskasten“ den Schalter **„Hinweiskasten anzeigen“** aus.
 - [ ] **Datenschutzerklärung vervollständigen.** Die jetzige Fassung ist eine Kurzform. Ergänzt werden müssen unter anderem der Hosting-Anbieter (GitHub), die Rechtsgrundlagen, die Speicherdauer, die Rechte der Betroffenen und das Beschwerderecht. Lassen Sie den Text am besten fachkundig prüfen. Danach auch hier unter „Datenschutz“ → „Hinweiskasten“ den Schalter **„Hinweiskasten anzeigen“** ausschalten.

@@ -1,0 +1,26 @@
+{#- Team building blocks for the homepage section and the team page (team.yml).
+    Import with: {% from "partials/team-bausteine.njk" import avatar, chips %} -#}
+
+{#- Round photo when `person.foto` is set, otherwise the monogram (initials of first and last word).
+    gross = larger avatar for the owners on the team page. The photo is decorative (alt=""):
+    the name is right next to it. -#}
+{%- macro avatar(person, gross = false) -%}
+{%- set klasse = "monogram monogram-lg" if gross else "monogram" -%}
+{%- if person.foto -%}
+<span class="{{ klasse }} overflow-hidden"><img src="{{ person.foto }}" eleventy:widths="{{ '240,480' if gross else '180,360' }}" eleventy:pictureattr:class="size-full" sizes="{{ '(min-width: 40rem) 112px, 72px' if gross else '(min-width: 40rem) 88px, 72px' }}" loading="lazy" decoding="async" class="size-full object-cover object-[50%_25%]" alt=""></span>
+{%- else -%}
+<span class="{{ klasse }}" aria-hidden="true">{{ person.name | initiale }}<i>{{ person.name | initiale("last") }}</i></span>
+{%- endif -%}
+{%- endmacro -%}
+
+{#- Qualifications as small chips (empty entries are skipped) -#}
+{%- macro chips(liste, klasse = "") -%}
+{%- set eintraege = (liste or []) | select -%}
+{%- if eintraege.length -%}
+<ul class="{{ klasse }}flex flex-wrap gap-2" aria-label="Qualifikationen">
+  {%- for q in eintraege %}
+  <li class="chip">{{ q }}</li>
+  {%- endfor %}
+</ul>
+{%- endif -%}
+{%- endmacro -%}

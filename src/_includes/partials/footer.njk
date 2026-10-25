@@ -1,6 +1,5 @@
 {#- Footer (all pages) -#}
 {%- set start = (seite == "start") -%}
-{%- set basis = "" if start else "/" -%}
 {%- set offen = praxis.oeffnungszeiten | geoeffnet -%}
 {%- set fuss = navigation.fusszeile %}
   <!-- ============ Footer ============ -->
@@ -57,7 +56,7 @@
             <h2 class="label !text-paper/70">{{ fuss.links_titel }}</h2>
             <ul class="mt-2.5 text-paper/90">
               {%- for link in fusslinks %}
-              <li><a href="{{ basis }}#{{ link.ziel }}" class="inline-flex min-h-11 min-w-11 items-center hover:text-paper">{{ link.text }}</a></li>
+              <li><a href="{{ link.href }}" class="inline-flex min-h-11 min-w-11 items-center hover:text-paper"{% if link.aktiv %} aria-current="page"{% endif %}>{{ link.text }}</a></li>
               {%- endfor %}
             </ul>
           </div>

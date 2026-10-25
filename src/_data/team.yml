@@ -1,30 +1,120 @@
-# Team: Bereich „Ihr Team“ auf der Startseite.
-# Namen und Fotos nur mit Einverständnis der jeweiligen Person veröffentlichen.
+# Team: Bereich „Die Inhaber“ auf der Startseite und die eigene Seite „Unser Team“ (/team.html).
+# Namen und Fotos nur mit Einwilligung der jeweiligen Person veröffentlichen.
+# Mitarbeitende nur mit Vornamen und abgekürztem Nachnamen nennen, z. B. „Anna M.“.
 # Ohne Foto wird automatisch ein Monogramm (Initialen) gezeigt.
-
 anzeigen: true
-eyebrow: Ihr Team
-titel: Die Inhaber
-text: "Dirk Kemper und seine Söhne Björn und Yannick führen die Praxis gemeinsam – mit einem Grundsatz, der uns seit vielen Jahren begleitet:"
-zitat: „Der Mensch steht im Mittelpunkt.“
-hinweis: Unser ganzes Team stellen wir Ihnen hier bald ausführlich vor.
 
-mitglieder:
+# Bereich auf der Startseite: die Inhaber und ein Link zur Team-Seite
+startseite:
+  eyebrow: Ihr Team
+  titel: Die Inhaber
+  text: "Dirk Kemper und seine Söhne Björn und Yannick führen die Praxis gemeinsam – mit einem Grundsatz, der uns seit vielen Jahren begleitet:"
+  zitat: „Der Mensch steht im Mittelpunkt.“
+  link_text: Das ganze Team kennenlernen
+
+# Eigene Seite „Unser Team“ (/team.html)
+seite:
+  seo_titel: Unser Team – Physiotherapie Kemper
+  seo_beschreibung: "Die Menschen hinter der Physiotherapie Kemper in Hannover-Stöcken: die Inhaber Dirk, Björn und Yannick Kemper und ihr Team aus Therapie, Empfang und Verwaltung."
+  eyebrow: Unser Team
+  titel: Die Menschen hinter
+  titel_betont: Ihrer Therapie.
+  intro: "Die Physiotherapie Kemper ist ein Familienbetrieb: Dirk Kemper führt die Praxis gemeinsam mit seinen Söhnen Björn und Yannick. Zusammen mit unserem Team aus Therapie, Empfang und Verwaltung sind wir für Sie da – mit einem Grundsatz, der uns seit vielen Jahren begleitet:"
+  zitat: „Der Mensch steht im Mittelpunkt.“
+  bild: /assets/bilder/aussenansicht.jpg
+  bild_alt: "Schaufenster der Praxis am Stöckener Markt mit der Aufschrift „Krankengymnastik – Dirk Kemper & Söhne“"
+  bildausschnitt: object-[84%_40%] lg:object-[80%_45%]
+  inhaber_titel: Die Inhaber
+  inhaber_text: Vater und Söhne führen die Praxis gemeinsam.
+  team_titel: Unser Praxisteam
+  team_text: Vom ersten Anruf bis zur Behandlung – diese Menschen sind in unserer Praxis für Sie da.
+  anruf_titel: Wir freuen uns darauf, Sie kennenzulernen.
+  anruf_text: Rufen Sie uns an – wir beraten Sie gern und vereinbaren einen Termin mit Ihnen.
+
+inhaber:
   - name: Dirk Kemper
     rolle: Inhaber · Geschäftsführer
+    qualifikationen: []
     foto: ""
     text: ""
-    qualifikationen: []
     sichtbar: true
   - name: Björn Kemper
     rolle: Inhaber · Physiotherapeut · Osteopath
+    qualifikationen: []
     foto: ""
     text: ""
-    qualifikationen: []
     sichtbar: true
   - name: Yannick Kemper
     rolle: Inhaber · Physiotherapeut · Osteopath
+    qualifikationen: []
     foto: ""
     text: ""
+    sichtbar: true
+
+# Stand: Team-Seite der Praxis, Januar 2023 – bitte prüfen, aktualisieren und nur mit Einwilligung veröffentlichen.
+mitglieder:
+  - name: Kerstin W.
+    rolle: Physiotherapeutin
+    bereich: Therapie
     qualifikationen: []
+    foto: ""
+    text: ""
+    sichtbar: true
+  - name: Isadora B.
+    rolle: Physiotherapeutin
+    bereich: Therapie
+    qualifikationen: []
+    foto: ""
+    text: ""
+    sichtbar: true
+  - name: Sascha E.
+    rolle: Physiotherapeut
+    bereich: Therapie
+    qualifikationen: []
+    foto: ""
+    text: ""
+    sichtbar: true
+  - name: Sandra D.
+    rolle: Physiotherapeutin
+    bereich: Therapie
+    qualifikationen: []
+    foto: ""
+    text: ""
+    sichtbar: true
+  - name: Laura K.
+    rolle: Physiotherapeutin
+    bereich: Therapie
+    qualifikationen: []
+    foto: ""
+    text: ""
+    sichtbar: true
+  - name: Maria Laura G.
+    rolle: Physiotherapeutin
+    bereich: Therapie
+    qualifikationen: []
+    foto: ""
+    text: ""
+    sichtbar: true
+  - name: Barbara A.
+    rolle: Physiotherapeutin
+    bereich: Therapie
+    qualifikationen:
+      - Bobath-Therapeutin
+    foto: ""
+    text: ""
+    sichtbar: true
+  - name: Selina S.
+    rolle: Verwaltung
+    bereich: Empfang & Verwaltung
+    qualifikationen:
+      - Kauffrau im Gesundheitswesen
+    foto: ""
+    text: ""
+    sichtbar: true
+  - name: Birgit K.
+    rolle: Anmeldung
+    bereich: Empfang & Verwaltung
+    qualifikationen: []
+    foto: ""
+    text: ""
     sichtbar: true

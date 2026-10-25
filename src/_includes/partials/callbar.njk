@@ -1,7 +1,8 @@
-{#- Sticky call bar on phones/tablets. On the homepage it stays hidden while the hero button is visible. -#}
+{#- Sticky call bar on phones/tablets. It steps aside while the page's own call buttons are on screen
+    (marked with data-call-cta: the hero button on the homepage, the call box at the end of the team page). -#}
 {%- set start = (seite == "start") %}
   <!-- ============ Mobile call bar ============ -->
-  <div class="callbar fixed inset-x-0 bottom-0 z-30 border-t border-line bg-paper/95 px-4 pt-3 backdrop-blur-md lg:hidden" role="region" aria-label="Schnellkontakt"{% if start %} data-callbar data-hidden="true"{% endif %}>
+  <div class="callbar fixed inset-x-0 bottom-0 z-30 border-t border-line bg-paper/95 px-4 pt-3 backdrop-blur-md lg:hidden" role="region" aria-label="Schnellkontakt" data-callbar{% if start %} data-hidden="true"{% endif %}>
     <div class="mx-auto grid max-w-xl grid-cols-[1.5fr_1fr] gap-3">
       <a href="tel:{{ praxis.telefon_link }}" class="btn btn-primary !min-h-[3.25rem] !px-4">
         <svg class="size-5" aria-hidden="true"><use href="#i-phone"/></svg>

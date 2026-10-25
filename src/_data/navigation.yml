@@ -1,11 +1,14 @@
 # Navigation & Fußzeile.
-# „ziel“ ist der Bereich der Startseite: willkommen, team, leistungen, praxis, ablauf, fragen oder kontakt.
+# „ziel“ ist ein Bereich der Startseite (willkommen, team, leistungen, praxis, ablauf, fragen, kontakt)
+# oder „teamseite“ für die eigene Seite „Unser Team“ (/team.html).
 # Links zu ausgeblendeten Bereichen (z. B. Team) werden automatisch weggelassen.
-
 hauptmenue:
   - ziel: willkommen
     text: Über uns
     text_menue: Über uns
+  - ziel: teamseite
+    text: Team
+    text_menue: Unser Team
   - ziel: leistungen
     text: Leistungen
     text_menue: Leistungen
@@ -28,7 +31,7 @@ fusszeile:
   links:
     - ziel: leistungen
       text: Leistungen
-    - ziel: team
+    - ziel: teamseite
       text: Team
     - ziel: praxis
       text: Unsere Räume

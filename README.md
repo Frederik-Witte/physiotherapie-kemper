@@ -3,6 +3,7 @@
 Website of Physiotherapie Kemper (Hannover-Stöcken). All content lives in YAML files and is edited by the practice through a Git-based CMS. Every save is a commit to `main`, which rebuilds and deploys the site to GitHub Pages.
 
 - Live preview: <https://frederik-witte.github.io/physiotherapie-kemper/>
+- Team page: <https://frederik-witte.github.io/physiotherapie-kemper/team.html>
 - CMS: <https://frederik-witte.github.io/physiotherapie-kemper/admin/>
 - Guide for the practice (German, non-technical): [ANLEITUNG.md](ANLEITUNG.md)
 
@@ -21,8 +22,10 @@ src/
   admin/         Sveltia CMS (index.html, config.yml)
   assets/        bilder/ (photos, CMS media folder), fonts/ (self-hosted woff2)
   styles/        input.css (Tailwind entry)
-  index.njk  impressum.njk  datenschutz.njk
+  index.njk  team.njk (+ team.11tydata.js)  impressum.njk  datenschutz.njk
 ```
+
+Pages: the one-page homepage (`index.njk`), the team page (`team.njk` → `/team.html`) and the two legal pages. The team page is built from `team.yml` (`seite`, `inhaber`, `mitglieder` grouped by `bereich`) and is skipped entirely (`permalink: false` in `team.11tydata.js`) while `team.anzeigen` is off or nobody is visible. Navigation entries come ready-made from `src/_data/eleventyComputed.js`: `ziel: teamseite` links to `/team.html`, every other `ziel` to a homepage section (`#…` on the homepage, `/#…` elsewhere), and the current page's entry gets `aria-current="page"`. Staff on the team page are listed with first name and surname initial only (the CMS enforces it), because this repository and its history are public.
 
 Texts may contain placeholders such as `{telefon}`, `{email}` or `{strasse}`. They are filled from `praxis.yml`, so contact details exist in one place only (see `eleventy.config.js`). `{route}` becomes a link to `praxis.routenlink` whose text is the contact section's route button (`startseite.yml` → `kontakt.button_route`).
 

@@ -23,21 +23,24 @@
         root.classList.remove('menu-open');
         openBtn.setAttribute('aria-expanded', 'false');
       });
+      // Close on the backdrop and on every link (also links to other pages, so the menu is not
+      // still open when the visitor comes back with the browser's back button)
       dlg.addEventListener('click', function (e) {
-        if (e.target === dlg || e.target.closest('a[href^="#"]')) dlg.close();
+        if (e.target === dlg || e.target.closest('a[href]')) dlg.close();
       });
       window.matchMedia('(min-width: 80rem)').addEventListener('change', function (e) { if (e.matches && dlg.open) dlg.close(); });
     } else if (openBtn) {
       openBtn.addEventListener('click', function () { location.hash = '#kontakt'; });
     }
 
-    // Call bar: stays out of the way while the hero button is on screen
+    // Call bar: stays out of the way while the page's own call buttons are on screen
+    // (homepage: hero button, team page: call box at the end)
     var bar = document.querySelector('[data-callbar]');
-    var heroCta = document.querySelector('[data-hero-cta]');
-    if (bar && heroCta && 'IntersectionObserver' in window) {
+    var callCta = document.querySelector('[data-call-cta]');
+    if (bar && callCta && 'IntersectionObserver' in window) {
       new IntersectionObserver(function (entries) {
         bar.dataset.hidden = entries[0].isIntersecting ? 'true' : 'false';
-      }).observe(heroCta);
+      }).observe(callCta);
     } else if (bar) {
       bar.dataset.hidden = 'false';
     }
@@ -66,11 +69,11 @@
       items.forEach(function (el) { el.classList.add('is-in'); });
     }
 
-    // Current section in the desktop navigation
-    var links = document.querySelectorAll('.nav-link');
+    // Current section in the desktop navigation (homepage: links carry data-spy="<section id>")
+    var links = document.querySelectorAll('.nav-link[data-spy]');
     if ('IntersectionObserver' in window && links.length) {
       var map = {};
-      links.forEach(function (l) { map[l.getAttribute('href').slice(1)] = l; });
+      links.forEach(function (l) { map[l.dataset.spy] = l; });
       var spy = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {
           var l = map[en.target.id];
